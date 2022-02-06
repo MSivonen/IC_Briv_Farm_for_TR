@@ -34,6 +34,8 @@ GUI settings:
 
 Settings file "ResetZoneBuffer" is ignored.
 
+---
+
 If you need help, ask here: https://discord.com/channels/357247482247380994/474639469916454922
 
 Original script can be found here: https://github.com/mikebaldi/Idle-Champions/tree/IC-Script-Hub-Public
