@@ -1,3 +1,4 @@
+;TR ver 0.1a
 ;Load user settings
 global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\BrivGemFarmSettings.json" )
 global g_BrivFarm := new IC_BrivGemFarm_Class
