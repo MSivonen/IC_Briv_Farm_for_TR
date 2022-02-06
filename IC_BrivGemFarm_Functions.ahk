@@ -1,4 +1,6 @@
 ;Briv Gem Farm modified for Temporal Rift by Thatman
+ver 0.1a
+
 
 class IC_BrivSharedFunctions_Class extends IC_SharedFunctions_Class
 {
