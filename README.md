@@ -28,7 +28,7 @@ Usage:
 
 GUI settings:
 
-"Use dynamic reset zone?" Enables this
+"Use dynamic reset zone?" Enables this. Disable to have 100% original unmodded functionality. No need to restore backup files.
 
 "Farm after this zone" is ignored. Minimum farming zone is still used.
 
