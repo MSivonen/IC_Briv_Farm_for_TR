@@ -17,6 +17,8 @@ Dynamic reset zone modification by Thatman
  
  
  Installation: Overwrite the original files with these. Make backups of the originals.
+ 
+ If you encounter a checkbox without text in GUI, (un)check it, save and reload script.
 
 .
 .
