@@ -26,8 +26,6 @@ Dynamic reset zone modification by Thatman
 
 Usage:
 
-Changed GUI settings:
-
 "Use dynamic reset zone?" Enables this mod. Disable to have 100% original unmodded functionality. No need to restore backup files.
 
 "Reset after stacking if haste stacks is less than this" for early stacking. Ignored if dynamic reset zone is unchecked.
@@ -36,9 +34,11 @@ Changed GUI settings:
 
 Settings file "ResetZoneBuffer" is ignored.
 
+In-game Modron core reset level is ignored when playing a variant.
+
 ---
 
-If you need help, ask here: https://discord.com/channels/357247482247380994/474639469916454922
+If you need help, ask here: https://discord.com/invite/N3U8xtB
 
 Original script can be found here: https://github.com/mikebaldi/Idle-Champions/tree/IC-Script-Hub-Public
 
