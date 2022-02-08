@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.1a
+ver 0.2
 
 Modified gem farm for temporal rift (not tested on other variants)
 --
@@ -39,3 +39,8 @@ Settings file "ResetZoneBuffer" is ignored.
 If you need help, ask here: https://discord.com/channels/357247482247380994/474639469916454922
 
 Original script can be found here: https://github.com/mikebaldi/Idle-Champions/tree/IC-Script-Hub-Public
+
+---
+
+v0.1a initial release
+v0.2 added support for early stacking

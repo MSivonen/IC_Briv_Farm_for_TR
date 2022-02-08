@@ -1,4 +1,4 @@
-;TR ver 0.1a
+;TR v0.2
 ;Load user settings
 global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\BrivGemFarmSettings.json" )
 global g_BrivFarm := new IC_BrivGemFarm_Class
@@ -17,6 +17,7 @@ Gui, ICScriptHub:Add, Checkbox, vStackFailRecoveryCheck Checked%StackFailRecover
 Gui, ICScriptHub:Add, Checkbox, vDisableDashWaitCheck Checked%DisableDashWait% x15 y+5, Disable Dash Wait?
 if(g_isDarkMode)
     Gui, ICScriptHub:Font, g_CustomColor
+Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vNewStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vNewMinStackZone x15 y+10 w50, % g_BrivUserSettings[ "MinStackZone" ]
 Gui, ICScriptHub:Add, Edit, vNewTargetStacks x15 y+10 w50, % g_BrivUserSettings[ "TargetStacks" ]
@@ -44,10 +45,11 @@ Gui, ICScriptHub:Add, Picture, x+15 h50 w50 gBriv_Save_Clicked vBrivGemFarmSaveB
 ; Gui, ICScriptHub:Add, Button, x+25 w50 gBriv_Connect_Clicked, Connect
 ; Gui, ICScriptHub:Add, Button, x+25 w50 gBriv_Run_Stop_Clicked, Stop
 
-GuiControlGet, xyVal, ICScriptHub:Pos, NewStackZone
+GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
 xyValX += 55
 xyValY += 5
-Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+10, Farm SB stacks AFTER this zone
+Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+10, Reset after stacking if haste stacks is less than this
+Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Farm SB stacks AFTER this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Minimum zone Briv can farm SB stacks on
 Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Target Haste stacks for next run
 Gui, ICScriptHub:Add, Text, x%xyValX% y+18, `Time (ms) client remains closed to trigger Restart Stacking (0 disables)
@@ -110,6 +112,7 @@ class IC_BrivGemFarm_Component
 
     UpdateGUICheckBoxes()
     {
+	    GuiControl,ICScriptHub:, TRHaste, % g_BrivUserSettings[ "TRHaste" ]
         GuiControl,ICScriptHub:, TRHack, % g_BrivUserSettings[ "TRHack" ]
         GuiControl,ICScriptHub:, FkeysCheck, % g_BrivUserSettings[ "Fkeys" ]
         GuiControl,ICScriptHub:, AvoidBossesCheck, % g_BrivUserSettings[ "AvoidBosses" ]
@@ -182,6 +185,7 @@ class IC_BrivGemFarm_Component
     {
         global
         Gui, ICScriptHub:Submit, NoHide
+        g_BrivUserSettings[ "TRHaste" ] := TRHaste
         g_BrivUserSettings[ "TRHack" ] := TRHack
         g_BrivUserSettings[ "Fkeys" ] := FkeysCheck
         g_BrivUserSettings[ "AvoidBosses" ] := AvoidBossesCheck
