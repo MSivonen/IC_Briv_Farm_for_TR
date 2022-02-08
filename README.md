@@ -45,4 +45,5 @@ Original script can be found here: https://github.com/mikebaldi/Idle-Champions/t
 ---
 
 v0.1a initial release
+
 v0.2 added support for early stacking
