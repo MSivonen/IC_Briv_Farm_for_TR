@@ -26,11 +26,13 @@ Dynamic reset zone modification by Thatman
 
 Usage:
 
-GUI settings:
+Changed GUI settings:
 
-"Use dynamic reset zone?" Enables this. Disable to have 100% original unmodded functionality. No need to restore backup files.
+"Use dynamic reset zone?" Enables this mod. Disable to have 100% original unmodded functionality. No need to restore backup files.
 
-"Farm after this zone" is ignored. Minimum farming zone is still used.
+"Reset after stacking if haste stacks is less than this" for early stacking. Ignored if dynamic reset zone is unchecked.
+
+"Farm after this zone" set to 2000, if you want to stack when Briv runs out of haste stacks.
 
 Settings file "ResetZoneBuffer" is ignored.
 
