@@ -49,7 +49,7 @@ GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
 xyValX += 55
 xyValY += 5
 Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+9, Reset after stacking if haste stacks is less than this
-Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+10, Farm SB stacks AFTER this zone
+Gui, ICScriptHub:Add, Text, x%xyValX% y+16, Farm SB stacks AFTER this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Minimum zone Briv can farm SB stacks on
 Gui, ICScriptHub:Add, Text, x%xyValX% y+18, Target Haste stacks for next run
 Gui, ICScriptHub:Add, Text, x%xyValX% y+18, `Time (ms) client remains closed to trigger Restart Stacking (0 disables)
