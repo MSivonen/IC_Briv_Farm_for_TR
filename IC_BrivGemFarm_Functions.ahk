@@ -1,4 +1,4 @@
-;TR v0.2
+;TR v0.21
 class IC_BrivSharedFunctions_Class extends IC_SharedFunctions_Class
 {
     steelbones := ""
@@ -487,7 +487,7 @@ class IC_BrivGemFarm_Class
         stackfail := 0
         forcedReset := false
         forcedResetReason := ""
-
+		
 		if (g_BrivUserSettings[ "TRHack" ] )
 		{
 		;Early stacking
@@ -496,19 +496,19 @@ class IC_BrivGemFarm_Class
 				this.StackFarm()
 	            g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
 			}
-			
-		;End of run stacking		
-			if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
-			{
-				this.StackFarm()
-				stackFail := StackFailStates.FAILED_TO_REACH_STACK_ZONE_HARD
-				g_SharedData.StackFailStats.TALLY[stackfail] += 1
-				g_SF.RestartAdventure( "TR stack and reset" )
+			;End of run stacking		
+		if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
+		{
+			this.StackFarm()
+			stackFail := StackFailStates.FAILED_TO_REACH_STACK_ZONE_HARD
+			g_SharedData.StackFailStats.TALLY[stackfail] += 1
+			g_SF.RestartAdventure( "TR stack and reset" )
 			}
-		}		
-		
+	}
+
 		if (!g_BrivUserSettings[ "TRHack" ] )
 		{
+	
 			; passed stack zone, start stack farm. Normal operation.
 			if ( stacks < g_BrivUserSettings[ "TargetStacks" ] AND CurrentZone > g_BrivUserSettings[ "StackZone" ] )
 				this.StackFarm()

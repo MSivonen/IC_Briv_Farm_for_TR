@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.2
+ver 0.21
 
 Modified gem farm for temporal rift (not tested on other variants)
 --
@@ -47,3 +47,5 @@ Original script can be found here: https://github.com/mikebaldi/Idle-Champions/t
 v0.1a initial release
 
 v0.2 added support for early stacking
+
+v0.21 minor update
