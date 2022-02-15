@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.3
+ver 0.4
 
 Modified gem farm for temporal rift (not tested on other variants)
 --
@@ -28,8 +28,10 @@ At first run it writes one line to IC_BrivGemFarm_Mods.ahk:
 
  #include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk
 
-If you remove this mod, you may want to remove that line also.
+If you remove this mod, you may want to remove that line also. You don't have to.
  
+
+Note: When updating IC Briv Gem Farm with Github Desktop, the AddOns folder will be reverted to original, ie. this mod will be deleted.
 
 .
 .
@@ -60,3 +62,5 @@ v0.2 added support for early stacking
 v0.21 minor update
 
 v0.3 Primitive GUI and installer
+
+v0.4 Dash wait after early stacking. Logging. Gui fixes.

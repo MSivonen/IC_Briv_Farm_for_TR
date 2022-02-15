@@ -1,8 +1,9 @@
 -TR start server call
 -Autom. bs use
--Last reset zone
-	avg 10 reset zone
--installeriin save settings	
-	
-	
+
+
+
+V -Last reset zone
+V	avg 10 reset zone
+V-installeriin save settings	
 V -GUI/Addon

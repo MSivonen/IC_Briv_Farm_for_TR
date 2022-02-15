@@ -1,6 +1,6 @@
 {
 	"Name":"Briv gem farm for Temporal Rift",
-	"Version": "v0.3.",
+	"Version": "v0.4.",
     "Includes" : "IC_BrivGemFarm_TR_Includes.ahk",
     "Author" : "Thatman",
     "Url" : "https://github.com/MSivonen/IC_Briv_Farm_for_TR",

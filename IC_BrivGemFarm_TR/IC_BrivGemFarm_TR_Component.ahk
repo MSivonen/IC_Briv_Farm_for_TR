@@ -1,4 +1,4 @@
-;v0.3
+;v0.4
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings
@@ -13,14 +13,13 @@ Gui, ICScriptHub:Font, w400
 
 Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod% gBOXdynamic x15 y+15, Use dynamic reset zone?
 Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
+Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
 
-;GuiControlGet, xyVal, ICScriptHub:Pos, TRMod
-;Gui, ICScriptHub:Add, Text, x230 y%xyValY%, Previous reset zone:
-;Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT ; vg_prevLVL
-
+UpdateGUICheckBoxesTR()
+UpdateTRGUI()
 
 
 GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
@@ -31,57 +30,135 @@ Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Farm SB stacks after this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Minimum zone Briv can farm SB stacks on
 
 Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
+
+Gui, ICScriptHub:Add, Text, x15 y+25, Previous reset zone: 
+Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
+
+Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
+Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
+
 Gui, ICScriptHub:Add, Button , x540 y735 gDelinaButtonClicked, .
 
 Loop
 	{
-	g_prevLVL = % g_SF.Memory.ReadHighestZone()
-	GuiControl,,PrevTXT, % g_prevLVL
+	prevRST = % PrevRSTobject.getPrevReset()
+	GuiControl,,PrevTXT, % prevRST
+	
+	avgRST = % PrevRSTobject.getAVG()
+	GuiControl,,AvgTXT, % avgRST
+
 	sleep 500
 	}
 
 
-;Disables text boxes
+;Disables check/text boxes when clicked
 BOXdynamic:
+	{
+	Gui, Submit, NoHide
+	If TRMod = 1
 		{
-		Gui, Submit, NoHide
-		If TRMod = 1
-			{
-			GuiControl, Enable, TRHaste
-			}
-		Else If TRMod = 0
-			{
-			GuiControl, Disable, TRHaste
-			}
-		Return
+		GuiControl, Enable, EarlyStacking
+			If EarlyStacking = 1
+				GuiControl, Enable, TRHaste
 		}
-
-	BOXstack:
+	Else If TRMod = 0
 		{
-		Gui, Submit, NoHide
-		If EarlyStacking = 1
-			{
-			GuiControl, Enable, StackZone
-			}
-		Else If EarlyStacking = 0
-			{
-			GuiControl, Disable, StackZone	
-			}
-		Return
+		GuiControl, Disable, TRHaste
+		GuiControl, Disable, EarlyStacking
 		}
+	return
+	}
 
-	Gui, Show
-Return
+BOXstack:
+	{
+	Gui, Submit, NoHide
+	If EarlyStacking = 1
+		{
+		GuiControl, Enable, TRHaste
+		GuiControl, Enable, StackZone
+		GuiControl, Enable, EarlyDashWait
+		}
+	Else If EarlyStacking = 0
+		{
+		GuiControl, Disable, StackZone	
+		GuiControl, Disable, EarlyDashWait	
+		GuiControl, Disable, TRHaste
+		}
+	Return
+	}
+
+
+UpdateTRGUI() ;Disables check/text boxes when script is loaded
+	{
+	If % g_BrivUserSettings[ "TRHack" ] = 1
+		{
+		GuiControl, Enable, TRHaste
+		GuiControl, Enable, EarlyStacking
+		}
+	Else If % g_BrivUserSettings[ "TRHack" ] = 0
+		{
+		GuiControl, Disable, TRHaste
+		GuiControl, Disable, EarlyStacking
+		GuiControl, Enable, StackZone
+		}
+	If % g_BrivUserSettings[ "EarlyStacking" ] = 1
+		{
+		GuiControl, Enable, StackZone
+		GuiControl, Enable, EarlyDashWait
+		}
+	Else If % g_BrivUserSettings[ "EarlyStacking" ] = 0
+		{
+		GuiControl, Disable, TRHaste
+		GuiControl, Disable, StackZone	
+		GuiControl, Disable, EarlyDashWait	
+		}
+	}
+
+UpdateGUICheckBoxesTR() ;update gui according to settings file
+    {
+        GuiControl,ICScriptHub:, TRMod, % g_BrivUserSettings[ "TRHack" ]
+        GuiControl,ICScriptHub:, EarlyStacking, % g_BrivUserSettings[ "EarlyStacking" ]
+        GuiControl,ICScriptHub:, EarlyDashWait, % g_BrivUserSettings[ "EarlyDashWait" ]
+    }
 
 
 
+	
 
+; ############################################################
+;                          Buttons
+; ############################################################
 
+DelinaButtonClicked()
+	{
+	Run https://www.youtube.com/watch?v=dQw4w9WgXcQ
+	}
 
-
+TR_Save_Clicked()
+    {
+        global
+        Gui, ICScriptHub:Submit, NoHide
+        g_BrivUserSettings[ "TRHaste" ] := TRHaste
+        g_BrivUserSettings[ "MinStackZone" ] := MinZone
+        g_BrivUserSettings[ "TRHack" ] := TRMod
+        g_BrivUserSettings[ "StackZone" ] := StackZone
+        g_BrivUserSettings[ "EarlyStacking" ] := EarlyStacking
+        g_BrivUserSettings[ "EarlyDashWait" ] := EarlyDashWait
+		
+        g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
+        try ; avoid thrown errors when comobject is not available.
+        {
+            local SharedRunData := ComObjActive("{416ABC15-9EFC-400C-8123-D7D8778A2103}")
+            SharedRunData.ReloadSettings("ReloadBrivGemFarmSettingsDisplay")
+        }
+        return
+    }
+	
+	
+	
 FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_BrivGemFarm_Mods.ahk
 	{
-		SearchFor := "#include %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk"
+	SearchFor := "#include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk"
 	Found := False
 	Line := False
 
@@ -108,7 +185,7 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 		msgbox,4,First time run?,TRMod not found in `n ..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Mods.ahk.`n`n Add it there now?
 		IfMsgBox Yes
 		{
-			WriteInclude := "`n#include %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk"
+			WriteInclude := "`n#include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk"
 			FileAppend, %WriteInclude%, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Mods.ahk
 			TR_Save_Clicked()
 			MsgBox ,0,TRMod Installed, Please stop gem farm and restart ICSCripthub
@@ -117,32 +194,3 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 			MsgBox ,0,TRMod NOT installed, It will not work.
 		}
 	}
-	
-	
-; ############################################################
-;                          Buttons
-; ############################################################
-
-DelinaButtonClicked()
-	{
-	Run https://www.youtube.com/watch?v=dQw4w9WgXcQ
-	}
-
-TR_Save_Clicked()
-    {
-        global
-        Gui, ICScriptHub:Submit, NoHide
-        g_BrivUserSettings[ "TRHaste" ] := TRHaste
-        g_BrivUserSettings[ "MinStackZone" ] := MinZone
-        g_BrivUserSettings[ "TRHack" ] := TRMod
-        g_BrivUserSettings[ "StackZone" ] := StackZone
-        g_BrivUserSettings[ "EarlyStacking" ] := EarlyStacking
-		
-        g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
-        try ; avoid thrown errors when comobject is not available.
-        {
-            local SharedRunData := ComObjActive("{416ABC15-9EFC-400C-8123-D7D8778A2103}")
-            SharedRunData.ReloadSettings("ReloadBrivGemFarmSettingsDisplay")
-        }
-        return
-    }
