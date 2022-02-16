@@ -1,9 +1,12 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.4
+ver 0.41
 
 Modified gem farm for temporal rift (not tested on other variants)
 --
+
+There is a bug -> gui not updating... working on it
+
 This modified script detects when you run out of haste stacks and does stacking and restarts the adventure at that point.
 
 Early stacking is supported
@@ -64,3 +67,5 @@ v0.21 minor update
 v0.3 Primitive GUI and installer
 
 v0.4 Dash wait after early stacking. Logging. Gui fixes.
+
+v0.41 fixed installer, found bug -> gui not updating... working on it
