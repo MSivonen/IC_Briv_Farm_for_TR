@@ -1,4 +1,4 @@
-;v0.4
+;v0.41
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
 

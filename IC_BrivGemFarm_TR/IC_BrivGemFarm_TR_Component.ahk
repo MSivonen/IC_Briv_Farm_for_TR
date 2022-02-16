@@ -1,9 +1,8 @@
-;v0.4
+;v0.41
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings
-global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
-FindIncluded()
+;global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
 
 Gui, ICScriptHub:Tab, Briv TR
 
@@ -11,15 +10,19 @@ Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Text, ,Briv Gem Farm for Temporal Rift
 Gui, ICScriptHub:Font, w400
 
-Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod% gBOXdynamic x15 y+15, Use dynamic reset zone?
-Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
-Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
+;Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod% gBOXdynamic x15 y+15, Use dynamic reset zone?
+Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod% x15 y+15, Use dynamic reset zone?
+;Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
+Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% x15 y+5, Use early stacking?
+;Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
+Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% x15 y+5, Use dash wait after early stacking?
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
 
 UpdateGUICheckBoxesTR()
 UpdateTRGUI()
+FindIncluded()
 
 
 GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
@@ -39,6 +42,7 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 
 Gui, ICScriptHub:Add, Button , x540 y735 gDelinaButtonClicked, .
 
+/*
 Loop
 	{
 	prevRST = % PrevRSTobject.getPrevReset()
@@ -86,7 +90,7 @@ BOXstack:
 		}
 	Return
 	}
-
+*/
 
 UpdateTRGUI() ;Disables check/text boxes when script is loaded
 	{
@@ -131,7 +135,7 @@ UpdateGUICheckBoxesTR() ;update gui according to settings file
 
 DelinaButtonClicked()
 	{
-	Run https://www.youtube.com/watch?v=dQw4w9WgXcQ
+		msgbox Do not read
 	}
 
 TR_Save_Clicked()
