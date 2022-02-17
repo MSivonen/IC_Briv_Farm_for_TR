@@ -3,10 +3,9 @@
 ver 0.43
 
 TRMod for IC Script Hub by Thatman
---
 
 Modified gem farm for temporal rift (not tested on other variants)
----
+
 
 This addon detects when you run out of haste stacks and does stacking and restarts the adventure at that point.
 
