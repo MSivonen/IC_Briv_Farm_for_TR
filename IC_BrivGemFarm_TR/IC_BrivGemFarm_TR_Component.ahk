@@ -1,8 +1,8 @@
-;v0.41
+;v0.42
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings
-;global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
+global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
 
 Gui, ICScriptHub:Tab, Briv TR
 
@@ -10,15 +10,15 @@ Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Text, ,Briv Gem Farm for Temporal Rift
 Gui, ICScriptHub:Font, w400
 
-;Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod% gBOXdynamic x15 y+15, Use dynamic reset zone?
-Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod% x15 y+15, Use dynamic reset zone?
-;Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
-Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% x15 y+5, Use early stacking?
-;Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
-Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% x15 y+5, Use dash wait after early stacking?
+Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use dynamic reset zone?
+Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
+Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
+Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after zone
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
+Gui, ICScriptHub:Add, Edit, vTRForceZone x15 y+5 w50, % g_BrivUserSettings[ "TRForceZone" ]
+
 
 UpdateGUICheckBoxesTR()
 UpdateTRGUI()
@@ -31,6 +31,7 @@ xyValY += 4
 Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+9, Reset immediately after stacking if haste stacks is less than this
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Farm SB stacks after this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Minimum zone Briv can farm SB stacks on
+Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Force reset after this zone
 
 Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
 
@@ -41,6 +42,9 @@ Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
 Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 
 Gui, ICScriptHub:Add, Button , x540 y735 gDelinaButtonClicked, .
+
+TR_Save_Clicked()
+
 
 /*
 Loop
@@ -53,14 +57,16 @@ Loop
 
 	sleep 500
 	}
-
+*/
 
 ;Disables check/text boxes when clicked
-BOXdynamic:
+BOXdynamic()
 	{
+	global
 	Gui, Submit, NoHide
 	If TRMod = 1
 		{
+		GuiControl, Enable, TRForceZone
 		GuiControl, Enable, EarlyStacking
 			If EarlyStacking = 1
 				GuiControl, Enable, TRHaste
@@ -69,12 +75,14 @@ BOXdynamic:
 		{
 		GuiControl, Disable, TRHaste
 		GuiControl, Disable, EarlyStacking
+		GuiControl, Disable, TRForceZone	
 		}
 	return
 	}
 
-BOXstack:
+BOXstack()
 	{
+	global
 	Gui, Submit, NoHide
 	If EarlyStacking = 1
 		{
@@ -90,7 +98,22 @@ BOXstack:
 		}
 	Return
 	}
-*/
+	
+BOXforce()
+	{
+	global
+	Gui, Submit, NoHide
+	If TRForce = 1
+		{
+		GuiControl, Enable, TRForceZone
+		}
+	Else If TRForce = 0
+		{
+		GuiControl, Disable, TRForceZone	
+		}
+	Return
+	}
+
 
 UpdateTRGUI() ;Disables check/text boxes when script is loaded
 	{
@@ -148,6 +171,7 @@ TR_Save_Clicked()
         g_BrivUserSettings[ "StackZone" ] := StackZone
         g_BrivUserSettings[ "EarlyStacking" ] := EarlyStacking
         g_BrivUserSettings[ "EarlyDashWait" ] := EarlyDashWait
+        g_BrivUserSettings[ "TRForceZone" ] := TRForceZone
 		
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
         try ; avoid thrown errors when comobject is not available.
@@ -168,7 +192,7 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 
 
 	Line := False
-	Loop, Read, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Mods.ahk
+	Loop, Read, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Settings.ahk
 	{
 		If !Trim(A_LoopReadLine)
 			Continue
@@ -186,13 +210,15 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 	}
 	If (!Found)
 		{
-		msgbox,4,First time run?,TRMod not found in `n ..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Mods.ahk.`n`n Add it there now?
+		msgbox,4,First time run?,TRMod not found in `n ..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Settings.ahk.`n`n Add it there now?
 		IfMsgBox Yes
 		{
 			WriteInclude := "`n#include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk"
-			FileAppend, %WriteInclude%, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Mods.ahk
+			FileAppend, %WriteInclude%, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Settings.ahk
 			TR_Save_Clicked()
 			MsgBox ,0,TRMod Installed, Please stop gem farm and restart ICSCripthub
+			MsgBox ,0,Annoying thing, TRMod Known bug: TRMod tab may have empty text fields on first run.`nRestart ICSCripthub twice. That should fix it.`nSorry.
+
 		}
 		else
 			MsgBox ,0,TRMod NOT installed, It will not work.

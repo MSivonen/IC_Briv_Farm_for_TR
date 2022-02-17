@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.41
+ver 0.42
 
 Modified gem farm for temporal rift (not tested on other variants)
 --
@@ -27,7 +27,7 @@ Dynamic reset zone modification by Thatman
  
 Installation: Copy IC_BrivGemFarm_TR directory to your Briv Gem Farm\AddOns directory and enable the addon with IC Script Hub's addon manager or any other way you like.
 
-At first run it writes one line to IC_BrivGemFarm_Mods.ahk:
+At first run it writes one line to IC_BrivGemFarm_Settings.ahk:
 
  #include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk
 
@@ -69,3 +69,5 @@ v0.3 Primitive GUI and installer
 v0.4 Dash wait after early stacking. Logging. Gui fixes.
 
 v0.41 fixed installer, found bug -> gui not updating... working on it
+
+v0.42 fixed installer again, added forced reset zone

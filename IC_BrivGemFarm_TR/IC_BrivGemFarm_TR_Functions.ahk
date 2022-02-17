@@ -1,4 +1,4 @@
-;v0.41
+;v0.42
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
 
@@ -14,9 +14,7 @@ class TRClass extends IC_BrivGemFarm_Class
         forcedReset := false
         forcedResetReason := ""
 
-	    GuiControl, ICScriptHub:, PrevTXT, % CurrentZone
-
-		
+	
 		;Early stacking
 		if ( g_BrivUserSettings[ "EarlyStacking" ] AND stacks < g_BrivUserSettings[ "TargetStacks" ] AND CurrentZone > g_BrivUserSettings[ "StackZone" ] AND g_SF.Memory.ReadHasteStacks() > g_BrivUserSettings[ "TRHaste" ]  )
 			{
@@ -30,6 +28,15 @@ class TRClass extends IC_BrivGemFarm_Class
 			this.StackFarm()
 			g_SF.RestartAdventure( "TR reset" )
 			}
+			
+		;Forced reset
+		if ( g_BrivUserSettings [ "TRForceZone" ] < CurrentZone AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
+			{
+			PrevRSTobject.setPrevReset(CurrentZone)
+			this.StackFarm()
+			g_SF.RestartAdventure( "TR forced reset" )
+			}
+
 	}
 	
 	StackFarm()
