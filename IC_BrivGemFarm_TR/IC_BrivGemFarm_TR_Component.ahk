@@ -144,6 +144,7 @@ UpdateTRGUI() ;Disables check/text boxes when script is loaded
 UpdateGUICheckBoxesTR() ;update gui according to settings file
     {
         GuiControl,ICScriptHub:, TRMod, % g_BrivUserSettings[ "TRHack" ]
+        GuiControl,ICScriptHub:, TRForce, % g_BrivUserSettings[ "TRForce" ]
         GuiControl,ICScriptHub:, EarlyStacking, % g_BrivUserSettings[ "EarlyStacking" ]
         GuiControl,ICScriptHub:, EarlyDashWait, % g_BrivUserSettings[ "EarlyDashWait" ]
     }
@@ -172,6 +173,7 @@ TR_Save_Clicked()
         g_BrivUserSettings[ "EarlyStacking" ] := EarlyStacking
         g_BrivUserSettings[ "EarlyDashWait" ] := EarlyDashWait
         g_BrivUserSettings[ "TRForceZone" ] := TRForceZone
+        g_BrivUserSettings[ "TRForce" ] := TRForce
 		
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
         try ; avoid thrown errors when comobject is not available.
