@@ -32,7 +32,7 @@ class TR_Prev_Reset
 
 		FileRead, LogFile, % FilePath
 
-		nLines := InStr(LogFile, "`n",,, 100) ; max 100 lines
+		nLines := InStr(LogFile, "`n",,, 1000) ; max 1000 lines
 		if (nLines)
 		{
 			NewLogFile := SubStr(LogFile, InStr(LogFile, "`n") + 1)
