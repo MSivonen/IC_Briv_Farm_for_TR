@@ -1,13 +1,14 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.421
+ver 0.43
 
-Modified gem farm for temporal rift (not tested on other variants)
+TRMod for IC Script Hub by Thatman
 --
 
-There is a bug -> gui not updating... working on it
+Modified gem farm for temporal rift (not tested on other variants)
+---
 
-This modified script detects when you run out of haste stacks and does stacking and restarts the adventure at that point.
+This addon detects when you run out of haste stacks and does stacking and restarts the adventure at that point.
 
 Early stacking is supported
 
@@ -18,9 +19,6 @@ More stuff will be added
 ---
 
 
-Original made by Antilectual & mikebaldi1980
-
-Dynamic reset zone modification by Thatman
 
 ---
  
@@ -50,11 +48,15 @@ Many times when changing adventures, I got 70 stacks left, then stack/restart, t
 
 In-game Modron core reset level is ignored when playing any variant, including Temporal Rift (that's kinda why I made this thing).
 
+Force reset after specified zone: If your click wall is below the zone Briv can reach, or if you have another reason, you can set the reset level yourself. If you run out of stacks before this level, the adventure will restart.
+
+Previous resets are stored in trlog.json file.
+
 ---
 
 If you need help, ask here: https://discord.com/invite/N3U8xtB
 
-Original script can be found here: https://github.com/mikebaldi/Idle-Champions/tree/IC-Script-Hub-Public
+IC Script Hub can be found here: https://github.com/mikebaldi/Idle-Champions/tree/IC-Script-Hub-Public
 
 ---
 
@@ -73,3 +75,5 @@ v0.41 fixed installer, found bug -> gui not updating... working on it
 v0.42 fixed installer again, added forced reset zone
 
 v0.421 minor gui tweaks
+
+v0.43 major gui tweaks

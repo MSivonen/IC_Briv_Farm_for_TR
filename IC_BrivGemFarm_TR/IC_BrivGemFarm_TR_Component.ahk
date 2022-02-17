@@ -1,8 +1,9 @@
-;v0.421
+;v0.43
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings
 global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
+counter := new SecondCounter
 
 Gui, ICScriptHub:Tab, Briv TR
 
@@ -10,10 +11,10 @@ Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Text, ,Briv Gem Farm for Temporal Rift
 Gui, ICScriptHub:Font, w400
 
-Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use dynamic reset zone?
+Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use dynamic reset zone (enable this addon)?
 Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
 Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
-Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after zone
+Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
@@ -35,6 +36,8 @@ Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Minimum zone Briv can farm SB stacks
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Force reset after this zone
 
 Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
+Gui, ICScriptHub:Add, Button , x15 y+5 gViewLogButtonClicked, View ResetLog
+Gui, ICScriptHub:Add, Button , x15 y+5 gDeleteLogButtonClicked, Clear ResetLog
 
 Gui, ICScriptHub:Add, Text, x15 y+25, Previous reset zone: 
 Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
@@ -45,20 +48,17 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
+counter.Start()
 
-
-/*
-Loop
+UpdateTRLOG()
 	{
+	global
 	prevRST = % PrevRSTobject.getPrevReset()
 	GuiControl,,PrevTXT, % prevRST
 	
 	avgRST = % PrevRSTobject.getAVG()
 	GuiControl,,AvgTXT, % avgRST
-
-	sleep 500
 	}
-*/
 
 ;Disables check/text boxes when clicked
 BOXdynamic()
@@ -164,15 +164,31 @@ UpdateGUICheckBoxesTR() ;update gui according to settings file
 
 
 
+
+
+ViewLogButtonClicked()
+	{
+	logfilepath=%A_LineFile%\..\trlog.json
+	if FileExist(logfilepath)
+		{
+		Run, notepad.exe %A_LineFile%\..\trlog.json
+		}
+	else msgbox,, File not found, Empty log?
+	}
 	
-
-; ############################################################
-;                          Buttons
-; ############################################################
-
+DeleteLogButtonClicked()
+	{
+	MsgBox, 4,, Delete ResetLog?
+	IfMsgBox Yes
+		{
+		FileDelete, %A_LineFile%\..\trlog.json
+		MsgBox ResetLog cleared
+		}
+	}
+	
 DelinaButtonClicked()
 	{
-		msgbox Do not read
+		msgbox,4,Wanna play a game?
 	}
 
 TR_Save_Clicked()

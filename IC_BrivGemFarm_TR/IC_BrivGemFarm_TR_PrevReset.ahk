@@ -1,3 +1,5 @@
+;v0.43
+
 class TR_Prev_Reset
 {
 	getPrevReset() ; return last line of file
@@ -8,17 +10,31 @@ class TR_Prev_Reset
 		}
 	return last_line
 	}	
+	
+	getLogFile()
+	{
+	   FileRead text, addons\IC_BrivGemFarm_TR\trlog.json
+	   Loop Parse, text, `n
+		return text
+	}
 		
-	setPrevReset(lvl) ; write last line of file, delete first line, if over 10 lines
+	setPrevReset(lvl) ; write last line of file, delete first line, if over 100 lines
 	{
 		FilePath := "%A_LineFile%\..\..\IC_BrivGemFarm_TR\trlog.json"
-		FileAppend, `n%lvl%, % FilePath
+		if FileExist(FilePath)
+			{
+			FileAppend, `n%lvl%, % FilePath
+			}
+		Else
+			{
+			FileAppend, %lvl%, % FilePath
+			}
+
 		FileRead, LogFile, % FilePath
 
-		nLines := InStr(LogFile, "`n",,, 10) ; max 10 lines
+		nLines := InStr(LogFile, "`n",,, 100) ; max 100 lines
 		if (nLines)
 		{
-	;	msgbox ifnlines
 			NewLogFile := SubStr(LogFile, InStr(LogFile, "`n") + 1)
 			FileDelete, % FilePath
 			FileAppend, % NewLogFile, % FilePath
@@ -27,9 +43,18 @@ class TR_Prev_Reset
 	
 	getAVG()
 	{
-	fileread, variable, addons\IC_BrivGemFarm_TR\trlog.json
-	loop, parse, variable, `n
-		{
+	   FileRead text, addons\IC_BrivGemFarm_TR\trlog.json
+	   Loop Parse, text, `n
+		lines++
+	   Loop Parse, text, `n
+	   {
+		  If (A_Index < lines - 10)
+			 Continue
+		  L = %L%`n%A_Loopfield%
+	   }
+	   StringTrimLeft L, L, 1
+	   	loop, parse, L, `n
+				{
 			if A_LoopField <>
 			{
 				sum += A_LoopField
@@ -38,4 +63,28 @@ class TR_Prev_Reset
 		}
 		return floor(sum / count)
 	}
+}
+
+class SecondCounter {
+    __New() {
+        this.interval := 10000
+        this.count := 0
+        this.timer := ObjBindMethod(this, "Tick")
+    }
+    Start() {
+        timer := this.timer
+        SetTimer % timer, % this.interval
+    }
+    Stop() {
+        timer := this.timer
+        SetTimer % timer, Off
+    }
+    Tick() {
+		global
+		prevRST = % PrevRSTobject.getPrevReset()
+		GuiControl,ICScriptHub:,PrevTXT, % prevRST
+		
+		avgRST = % PrevRSTobject.getAVG()
+		GuiControl,ICScriptHub:,AvgTXT, % avgRST
+    }
 }
