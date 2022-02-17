@@ -1,4 +1,4 @@
-;v0.42
+;v0.421
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings
@@ -22,6 +22,7 @@ Gui, ICScriptHub:Add, Edit, vTRForceZone x15 y+5 w50, % g_BrivUserSettings[ "TRF
 
 UpdateGUICheckBoxesTR()
 UpdateTRGUI()
+
 FindIncluded()
 
 
@@ -41,7 +42,7 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
 Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
 Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 
-Gui, ICScriptHub:Add, Button , x540 y735 gDelinaButtonClicked, .
+Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
 
@@ -117,28 +118,40 @@ BOXforce()
 
 UpdateTRGUI() ;Disables check/text boxes when script is loaded
 	{
+	global
+	Gui, Submit, NoHide
+	If % g_BrivUserSettings[ "TRForce" ] = 0
+		{
+		GuiControl, ICScriptHub:Disable, TRForceZone
+		}
 	If % g_BrivUserSettings[ "TRHack" ] = 1
 		{
-		GuiControl, Enable, TRHaste
-		GuiControl, Enable, EarlyStacking
+			{
+			GuiControl, ICScriptHub:Enable, TRHaste
+			GuiControl, ICScriptHub:Enable, EarlyStacking
+			}
+		If % g_BrivUserSettings[ "EarlyStacking" ] = 1
+			{
+			GuiControl, ICScriptHub:Enable, TRHaste
+			GuiControl, ICScriptHub:Enable, StackZone
+			GuiControl, ICScriptHub:Enable, EarlyDashWait
+			}
+		Else If % g_BrivUserSettings[ "EarlyStacking" ] = 0
+			{
+			GuiControl, ICScriptHub:Disable, TRHaste
+			GuiControl, ICScriptHub:Disable, StackZone	
+			GuiControl, ICScriptHub:Disable, EarlyDashWait	
+			}
 		}
-	Else If % g_BrivUserSettings[ "TRHack" ] = 0
-		{
-		GuiControl, Disable, TRHaste
-		GuiControl, Disable, EarlyStacking
-		GuiControl, Enable, StackZone
-		}
-	If % g_BrivUserSettings[ "EarlyStacking" ] = 1
-		{
-		GuiControl, Enable, StackZone
-		GuiControl, Enable, EarlyDashWait
-		}
-	Else If % g_BrivUserSettings[ "EarlyStacking" ] = 0
-		{
-		GuiControl, Disable, TRHaste
-		GuiControl, Disable, StackZone	
-		GuiControl, Disable, EarlyDashWait	
-		}
+		Else If % g_BrivUserSettings[ "TRHack" ] = 0
+			{
+			GuiControl, ICScriptHub:Disable, TRHaste
+			GuiControl, ICScriptHub:Disable, EarlyStacking
+			GuiControl, ICScriptHub:Disable, TRForceZone
+			GuiControl, ICScriptHub:Disable, TRForce
+			GuiControl, ICScriptHub:Enable, StackZone
+			}
+
 	}
 
 UpdateGUICheckBoxesTR() ;update gui according to settings file

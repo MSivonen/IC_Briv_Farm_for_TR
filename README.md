@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.42
+ver 0.421
 
 Modified gem farm for temporal rift (not tested on other variants)
 --
@@ -71,3 +71,5 @@ v0.4 Dash wait after early stacking. Logging. Gui fixes.
 v0.41 fixed installer, found bug -> gui not updating... working on it
 
 v0.42 fixed installer again, added forced reset zone
+
+v0.421 minor gui tweaks
