@@ -1,4 +1,4 @@
-;v0.43
+;v0.431
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
 
@@ -30,7 +30,7 @@ class TRClass extends IC_BrivGemFarm_Class
 			}
 			
 		;Forced reset
-		if ( g_BrivUserSettings [ "TRForceZone" ] < CurrentZone AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
+		if ( g_BrivUserSettings [ "TRForce" ] AND g_BrivUserSettings [ "TRForceZone" ] < CurrentZone AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
 			{
 			PrevRSTobject.setPrevReset(CurrentZone)
 			this.StackFarm()
