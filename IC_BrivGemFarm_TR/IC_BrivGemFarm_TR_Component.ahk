@@ -1,4 +1,4 @@
-;v0.43
+;v0.44
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings

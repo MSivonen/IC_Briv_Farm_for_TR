@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.43
+ver 0.44
 
 TRMod for IC Script Hub by Thatman
 
