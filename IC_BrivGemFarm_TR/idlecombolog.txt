@@ -1,0 +1,5 @@
+(2022-02-20 20:41:26) IdleCombos v2.00 started.
+(2022-02-20 20:41:26) Settings file "idlecombosettings.json" created.
+(2022-02-20 20:48:15) IdleCombos v2.00 started.
+(2022-02-20 20:48:15) Settings file "idlecombosettings.json" created.
+(2022-02-20 20:48:34) IdleCombos v2.00 started.

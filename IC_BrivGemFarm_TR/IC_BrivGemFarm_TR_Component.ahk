@@ -21,6 +21,9 @@ Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStac
 Gui, ICScriptHub:Add, Edit, vTRForceZone x15 y+5 w50, % g_BrivUserSettings[ "TRForceZone" ]
 
 
+
+
+
 UpdateGUICheckBoxesTR()
 UpdateTRGUI()
 
@@ -44,6 +47,9 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
 
 Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
 Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
+
+Gui, ICScriptHub:Add, Button, x15 y+5 w60 gStart_TR, Start TR
+Gui, ICScriptHub:Add, Button, x15 y+5 w60 gFirstRun, Setup user details
 
 Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
