@@ -1,4 +1,4 @@
-;v0.44
+;v0.441
 
 GUIFunctions.AddTab("Briv TR")
 ;Load user settings
@@ -48,8 +48,9 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
 Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
 Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 
-Gui, ICScriptHub:Add, Button, x15 y+5 w60 gStart_TR, Start TR
-Gui, ICScriptHub:Add, Button, x15 y+5 w60 gFirstRun, Setup user details
+Gui, ICScriptHub:Add, Text, x15 y+100, Start Temporal Rift with this, if already completed it.
+Gui, ICScriptHub:Add, Button, x15 y+5  gStart_TR, Start TR
+Gui, ICScriptHub:Add, Button, x15 y+5  gFirstRun, Setup user details
 
 Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
