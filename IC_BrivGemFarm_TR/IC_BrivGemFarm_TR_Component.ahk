@@ -1,6 +1,6 @@
 ;v0.441
 
-GUIFunctions.AddTab("Briv TR")
+GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
 global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
 counter := new SecondCounter
@@ -48,7 +48,7 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
 Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
 Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 
-Gui, ICScriptHub:Add, Text, x15 y+100, Start Temporal Rift with this, if already completed it.
+Gui, ICScriptHub:Add, Text, x15 y+100, Start Temporal Rift with this, if you already completed it.
 Gui, ICScriptHub:Add, Button, x15 y+5  gStart_TR, Start TR
 Gui, ICScriptHub:Add, Button, x15 y+5  gFirstRun, Setup user details
 
