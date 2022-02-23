@@ -1,4 +1,4 @@
-;v0.431
+;v0.432
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
 
@@ -47,7 +47,7 @@ class TRClass extends IC_BrivGemFarm_Class
             this.StackNormal()
         currentFormation := g_SF.Memory.GetCurrentFormation()
         isShandieInFormation := g_SF.IsChampInFormation( 47, currentFormation )
-        if ( g_BrivUserSettings[ "EarlyStacking" ] AND isShandieInFormation ) ; AND g_SF.Memory.ReadHighestZone() + 50 < g_BrivUserSettings[ "StackZone"] )
+        if ( g_BrivUserSettings[ "EarlyStacking" ] AND isShandieInFormation AND g_BrivUserSettings[ "EarlyDashWait" ] ) ; AND g_SF.Memory.ReadHighestZone() + 50 < g_BrivUserSettings[ "StackZone"] )
             g_SF.DoDashWait( Max(g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ], 0) )
     }
 	
