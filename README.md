@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.44
+ver 0.441
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
@@ -56,4 +56,5 @@ v0.41 fixed installer, found bug -> gui not updating... working on it</br>
 v0.42 fixed installer again, added forced reset zone</br>
 v0.421 minor gui tweaks</br>
 v0.43 major gui tweaks</br>
-v0.44 added Start TR button
+v0.44 added Start TR button</br>
+v.0441 added description for TR button</br>
