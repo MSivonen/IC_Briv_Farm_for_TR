@@ -57,4 +57,5 @@ v0.42 fixed installer again, added forced reset zone</br>
 v0.421 minor gui tweaks</br>
 v0.43 major gui tweaks</br>
 v0.44 added Start TR button</br>
-v.0441 added description for TR button</br>
+v0.441 added description for TR button</br>
+v0.443 minor bug fixes
