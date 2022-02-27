@@ -35,9 +35,7 @@ Previous resets are stored in trlog.json file.</br>
 
 ---
 
-v0.44 added Start TR button. If you experience issues with it, replace the IC_BrivGemFarm_TR_Component.ahk with the file IC_BrivGemFarm_TR_Component_without_button.ahk
-
-Read this readme for more: https://github.com/MSivonen/TR_Button
+v0.44 added Start TR button. Read this readme for more: https://github.com/MSivonen/TR_Button
 
 ---
 
