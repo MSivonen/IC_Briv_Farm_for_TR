@@ -1,6 +1,7 @@
-;v0.432
+;v0.45
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
+global PrevStacksObject = new TR_Prev_Stacks
 
 class TRClass extends IC_BrivGemFarm_Class
 {
@@ -26,6 +27,7 @@ class TRClass extends IC_BrivGemFarm_Class
 			{
 			PrevRSTobject.setPrevReset(CurrentZone)
 			this.StackFarm()
+   			PrevStacksObject.setPrevReset(stacks)
 			g_SF.RestartAdventure( "TR reset" )
 			}
 			
@@ -34,8 +36,10 @@ class TRClass extends IC_BrivGemFarm_Class
 			{
 			PrevRSTobject.setPrevReset(CurrentZone)
 			this.StackFarm()
+			PrevStacksObject.setPrevReset(stacks)
 			g_SF.RestartAdventure( "TR forced reset" )
 			}
+        
 
 	}
 	

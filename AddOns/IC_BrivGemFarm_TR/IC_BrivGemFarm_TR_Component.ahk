@@ -1,4 +1,4 @@
-;v0.441
+;v0.45
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -40,7 +40,12 @@ Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Force reset after this zone
 
 Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
 Gui, ICScriptHub:Add, Button , x15 y+5 gViewLogButtonClicked, View ResetLog
-Gui, ICScriptHub:Add, Button , x15 y+5 gDeleteLogButtonClicked, Clear ResetLog
+Gui, ICScriptHub:Add, Button , x+15 gDeleteLogButtonClicked, Clear ResetLog
+Gui, ICScriptHub:Add, Button , x15 y+5 gViewStacksLogButtonClicked, View StacksLog
+Gui, ICScriptHub:Add, Button , x+15 gDeleteStacksLogButtonClicked, Clear StacksLog
+
+
+;*************LOG
 
 Gui, ICScriptHub:Add, Text, x15 y+25, Previous reset zone: 
 Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
@@ -48,11 +53,20 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
 Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
 Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
 
+Gui, ICScriptHub:Add, Text, x15 y+5, Previous stacks: 
+Gui, ICScriptHub:Add, Text, x+2 w100 vPrevStacksTXT
+
+Gui, ICScriptHub:Add, Text, x15 y+5, Average stacks (previous 10):
+Gui, ICScriptHub:Add, Text, x+2 w100 vAvgStacksTXT
+
+;*************LOG
+
+
 Gui, ICScriptHub:Add, Text, x15 y+100, Start Temporal Rift with this, if you already completed it.
 Gui, ICScriptHub:Add, Button, x15 y+5  gStart_TR, Start TR
 Gui, ICScriptHub:Add, Button, x15 y+5  gFirstRun, Setup user details
 
-Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
+;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
 counter.Start()
@@ -61,10 +75,14 @@ UpdateTRLOG()
 	{
 	global
 	prevRST = % PrevRSTobject.getPrevReset()
+	prevStacks = % PrevStacPrevStacksObjectksObject.getPrevReset()
 	GuiControl,,PrevTXT, % prevRST
+	GuiControl,,PrevStacksTXT, % prevStacks
 	
 	avgRST = % PrevRSTobject.getAVG()
+	avgStacks = % PrevStacksObject.getAVG()
 	GuiControl,,AvgTXT, % avgRST
+	GuiControl,,AvgStacksTXT, % avgStacks
 	}
 
 ;Disables check/text boxes when clicked
@@ -192,7 +210,28 @@ DeleteLogButtonClicked()
 		MsgBox ResetLog cleared
 		}
 	}
+
+ViewStacksLogButtonClicked()
+	{
+	logfilepath=%A_LineFile%\..\trlog.json
+	if FileExist(logfilepath)
+		{
+		Run, notepad.exe %A_LineFile%\..\trstacklog.json
+		}
+	else msgbox,, File not found, Empty log?
+	}
 	
+DeleteStacksLogButtonClicked()
+	{
+	MsgBox, 4,, Delete ResetLog?
+	IfMsgBox Yes
+		{
+		FileDelete, %A_LineFile%\..\trstacklog.json
+		MsgBox StacksLog cleared
+		}
+	}
+	
+
 DelinaButtonClicked()
 	{
 		msgbox,4,Wanna play a game?
