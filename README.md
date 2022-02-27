@@ -60,3 +60,4 @@ v0.44 added Start TR button</br>
 v0.441 added description for TR button</br>
 v0.443 minor bug fixes</br>
 v0.45 sb stacks log</br>
+v0.451 temporary quick fix for logs not loading</br>

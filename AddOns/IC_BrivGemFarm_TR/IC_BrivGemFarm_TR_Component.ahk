@@ -43,6 +43,8 @@ Gui, ICScriptHub:Add, Button , x15 y+5 gViewLogButtonClicked, View ResetLog
 Gui, ICScriptHub:Add, Button , x+15 gDeleteLogButtonClicked, Clear ResetLog
 Gui, ICScriptHub:Add, Button , x15 y+5 gViewStacksLogButtonClicked, View StacksLog
 Gui, ICScriptHub:Add, Button , x+15 gDeleteStacksLogButtonClicked, Clear StacksLog
+Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix)
+Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
 
 
 ;*************LOG
@@ -200,7 +202,11 @@ ViewLogButtonClicked()
 		}
 	else msgbox,, File not found, Empty log?
 	}
-	
+
+FixStatsClicked()
+	{
+		counter.Start()
+	}	
 DeleteLogButtonClicked()
 	{
 	MsgBox, 4,, Delete ResetLog?
