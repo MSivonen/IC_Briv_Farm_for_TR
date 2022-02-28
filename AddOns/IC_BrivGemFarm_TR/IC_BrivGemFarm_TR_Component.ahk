@@ -243,7 +243,7 @@ DeleteStacksLogButtonClicked()
 
 DelinaButtonClicked()
 	{
-		msgbox,I got married on 22.2.22 wearing a superman shirt.`nTry to outnerd that.
+		msgbox,I got married on 22.2.22 wearing a superman shirt.`nThe wedding march was Manowar - Heart of Steel`nTry to outnerd that.
 	}
 
 TR_Save_Clicked()
