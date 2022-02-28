@@ -35,7 +35,7 @@ Force reset after specified zone: If your click wall is lower than the zone Briv
 Previous resets are stored in trlog.json file.</br>
 </br>
 Avoid bosses/barriers checkbox and Jump only from this zone mod5: When enabled, the party will walk with e formation to desired jump zone and jump with q formation from there.</br>
-For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bossees and the barriers at zones 3 and 48.
+For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48.
 
 ---
 

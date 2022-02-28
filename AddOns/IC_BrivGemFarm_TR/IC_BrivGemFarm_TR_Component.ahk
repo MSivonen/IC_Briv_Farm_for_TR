@@ -71,7 +71,7 @@ Gui, ICScriptHub:Add, Text, x15 y+100, Start Temporal Rift with this, if you alr
 Gui, ICScriptHub:Add, Button, x15 y+5  gStart_TR, Start TR
 Gui, ICScriptHub:Add, Button, x15 y+5  gFirstRun, Setup user details
 
-;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
+Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
 counter.Start()
@@ -243,7 +243,7 @@ DeleteStacksLogButtonClicked()
 
 DelinaButtonClicked()
 	{
-		msgbox,4,Wanna play a game?
+		msgbox,I got married on 22.2.22 wearing a superman shirt.`nTry to outnerd that.
 	}
 
 TR_Save_Clicked()
