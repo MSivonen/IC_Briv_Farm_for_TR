@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.451
+ver 0.46
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
@@ -9,6 +9,7 @@ This addon detects when you run out of haste stacks and does stacking and restar
 Early stacking is supported</br>
 Some failsafe resets are removed</br>
 More stuff will be added</br>
+The gui is becoming a mess. Wip. </br>
 
 ---
  </br>
@@ -32,6 +33,8 @@ In-game Modron core reset level is ignored when playing any variant, including T
 Force reset after specified zone: If your click wall is lower than the zone Briv can reach, or if you start gem farm at high level and high number of stacks, (or any other reason), you can set the reset level yourself. If you run out of stacks before this level, the adventure will restart. Recommended to set this just a bit under your click wall to be safe.</br>
 </br>
 Previous resets are stored in trlog.json file.</br>
+Avoid bosses/barriers checkbox and Jump only from this zone mod5: When enabled, the party will walk with e formation to jump zone and jump with q formtaion from there.</br>
+For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bossees and the barriers at zones 3 and 48.
 
 ---
 
@@ -59,3 +62,4 @@ v0.441 added description for TR button</br>
 v0.443 minor bug fixes</br>
 v0.45 sb stacks log</br>
 v0.451 temporary quick fix for logs not loading</br>
+v0.46 Avoid barriers and bosses

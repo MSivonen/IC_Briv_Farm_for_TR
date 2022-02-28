@@ -1,4 +1,4 @@
-;v0.45
+;v0.46
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -14,11 +14,13 @@ Gui, ICScriptHub:Font, w400
 Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use dynamic reset zone (enable this addon)?
 Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
 Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
-Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone
+Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone?
+Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x15 y+5 , Avoid bosses and/or barriers?
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
 Gui, ICScriptHub:Add, Edit, vTRForceZone x15 y+5 w50, % g_BrivUserSettings[ "TRForceZone" ]
+Gui, ICScriptHub:Add, Edit, vTRJumpZone x15 y+5 w50, % g_BrivUserSettings[ "TRJumpZone" ]
 
 
 
@@ -37,6 +39,7 @@ Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+9, Reset immediately after stack
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Farm SB stacks after this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Minimum zone Briv can farm SB stacks on
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Force reset after this zone
+Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Jump only from this zone, mod5
 
 Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
 Gui, ICScriptHub:Add, Button , x15 y+5 gViewLogButtonClicked, View ResetLog
@@ -255,6 +258,8 @@ TR_Save_Clicked()
         g_BrivUserSettings[ "EarlyDashWait" ] := EarlyDashWait
         g_BrivUserSettings[ "TRForceZone" ] := TRForceZone
         g_BrivUserSettings[ "TRForce" ] := TRForce
+        g_BrivUserSettings[ "TRJumpZone" ] := TRJumpZone
+        g_BrivUserSettings[ "TRAvoid" ] := TRAvoid
 		
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
         try ; avoid thrown errors when comobject is not available.

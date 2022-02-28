@@ -1,4 +1,4 @@
-;v0.45
+;v0.46
 
 class TR_Prev_Reset
 {
