@@ -33,6 +33,7 @@ In-game Modron core reset level is ignored when playing any variant, including T
 Force reset after specified zone: If your click wall is lower than the zone Briv can reach, or if you start gem farm at high level and high number of stacks, (or any other reason), you can set the reset level yourself. If you run out of stacks before this level, the adventure will restart. Recommended to set this just a bit under your click wall to be safe.</br>
 </br>
 Previous resets are stored in trlog.json file.</br>
+</br>
 Avoid bosses/barriers checkbox and Jump only from this zone mod5: When enabled, the party will walk with e formation to jump zone and jump with q formtaion from there.</br>
 For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bossees and the barriers at zones 3 and 48.
 
