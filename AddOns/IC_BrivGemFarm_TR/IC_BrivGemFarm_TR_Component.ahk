@@ -284,7 +284,7 @@ ViewStacksLogButtonClicked()
 	
 DeleteStacksLogButtonClicked()
 	{
-	MsgBox, 4,, Delete ResetLog?
+	MsgBox, 4,, Delete StacksLog?
 	IfMsgBox Yes
 		{
 		FileDelete, %A_LineFile%\..\trstacklog.json

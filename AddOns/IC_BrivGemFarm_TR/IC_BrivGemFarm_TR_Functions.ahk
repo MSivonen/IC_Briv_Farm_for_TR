@@ -23,7 +23,7 @@ class TRClass extends IC_BrivGemFarm_Class
 			}
 			
 		;End of run stacking		
-		if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
+		if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) !=0 )
 			{
 			PrevRSTobject.setPrevReset(CurrentZone)
 			this.StackFarm()
