@@ -1,4 +1,4 @@
-;v0.46
+;v0.461
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -15,7 +15,7 @@ Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use
 Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
 Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
 Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone?
-Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x15 y+5 , Avoid bosses and/or barriers?
+Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x15 y+5 gBOXavoid, Avoid bosses and/or barriers?
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
@@ -90,8 +90,8 @@ UpdateTRLOG()
 	GuiControl,,AvgStacksTXT, % avgStacks
 	}
 
-;Disables check/text boxes when clicked
-BOXdynamic()
+BOXdynamic() ;Disables check/text boxes when clicked
+
 	{
 	global
 	Gui, Submit, NoHide
@@ -100,13 +100,31 @@ BOXdynamic()
 		GuiControl, Enable, TRForceZone
 		GuiControl, Enable, EarlyStacking
 			If EarlyStacking = 1
+			{
 				GuiControl, Enable, TRHaste
+				GuiControl, Enable, EarlyDashWait
+			}
+			else If EarlyStacking = 0
+			{
+				GuiControl, Disable, StackZone
+			}
+		GuiControl, Enable, TRforce
+		GuiControl, Enable, TRAvoid
+			If TRavoid = 1
+			{
+				GuiControl, Enable, TRJumpZone
+			}
 		}
 	Else If TRMod = 0
 		{
 		GuiControl, Disable, TRHaste
 		GuiControl, Disable, EarlyStacking
 		GuiControl, Disable, TRForceZone	
+		GuiControl, Disable, EarlyDashWait
+		GuiControl, Disable, TRforce
+		GuiControl, Disable, TRAvoid
+		GuiControl, Disable, TRJumpZone
+		GuiControl, Enable, StackZone
 		}
 	return
 	}
@@ -145,41 +163,65 @@ BOXforce()
 	Return
 	}
 
-
-UpdateTRGUI() ;Disables check/text boxes when script is loaded
+BOXavoid()
 	{
 	global
 	Gui, Submit, NoHide
-	If % g_BrivUserSettings[ "TRForce" ] = 0
+	If TRAvoid = 1
 		{
-		GuiControl, ICScriptHub:Disable, TRForceZone
+		GuiControl, ICScriptHub:Enable, TRJumpZone
 		}
+	Else If TRAvoid = 0
+		{
+		GuiControl, ICScriptHub:Disable, TRJumpZone	
+		}
+	Return
+	}
+
+UpdateTRGUI() ;Disables check/text boxes when script is loaded
+	{
+		; BOXavoid()
+		; BOXforce()
+		; BOXstack()
+		; BOXdynamic()
+	global
+	Gui, Submit, NoHide
+
+	
 	If % g_BrivUserSettings[ "TRHack" ] = 1
 		{
 			{
-			GuiControl, ICScriptHub:Enable, TRHaste
 			GuiControl, ICScriptHub:Enable, EarlyStacking
+			GuiControl, ICScriptHub:Enable, TRForce
+			GuiControl, ICScriptHub:Enable, TRAvoid
 			}
-		If % g_BrivUserSettings[ "EarlyStacking" ] = 1
-			{
-			GuiControl, ICScriptHub:Enable, TRHaste
-			GuiControl, ICScriptHub:Enable, StackZone
-			GuiControl, ICScriptHub:Enable, EarlyDashWait
-			}
-		Else If % g_BrivUserSettings[ "EarlyStacking" ] = 0
-			{
-			GuiControl, ICScriptHub:Disable, TRHaste
-			GuiControl, ICScriptHub:Disable, StackZone	
-			GuiControl, ICScriptHub:Disable, EarlyDashWait	
-			}
+			If % g_BrivUserSettings[ "TRForce" ] = 0
+				{
+				GuiControl, ICScriptHub:Disable, TRForceZone
+				}
+			If % g_BrivUserSettings[ "TRAvoid" ] = 0
+				{
+				GuiControl, ICScriptHub:Disable, TRJumpZone
+				}
+			If % g_BrivUserSettings[ "EarlyStacking" ] = 0
+				{
+				GuiControl, ICScriptHub:Disable, StackZone
+				GuiControl, ICScriptHub:Disable, TRHaste
+				GuiControl, ICScriptHub:Disable, EarlyDashWait	
+				}
+
 		}
+
 		Else If % g_BrivUserSettings[ "TRHack" ] = 0
 			{
 			GuiControl, ICScriptHub:Disable, TRHaste
 			GuiControl, ICScriptHub:Disable, EarlyStacking
+			GuiControl, ICScriptHub:Disable, EarlyDashWait
 			GuiControl, ICScriptHub:Disable, TRForceZone
 			GuiControl, ICScriptHub:Disable, TRForce
 			GuiControl, ICScriptHub:Enable, StackZone
+			GuiControl, ICScriptHub:Disable, TRJumpZone
+			GuiControl, ICScriptHub:Disable, TRAvoid
 			}
 
 	}
@@ -190,6 +232,7 @@ UpdateGUICheckBoxesTR() ;update gui according to settings file
         GuiControl,ICScriptHub:, TRForce, % g_BrivUserSettings[ "TRForce" ]
         GuiControl,ICScriptHub:, EarlyStacking, % g_BrivUserSettings[ "EarlyStacking" ]
         GuiControl,ICScriptHub:, EarlyDashWait, % g_BrivUserSettings[ "EarlyDashWait" ]
+        GuiControl,ICScriptHub:, TRAvoid, % g_BrivUserSettings[ "TRAvoid" ]
     }
 
 
@@ -243,6 +286,7 @@ DeleteStacksLogButtonClicked()
 
 DelinaButtonClicked()
 	{
+		UpdateTRGUI()
 		msgbox,I got married on 22.2.22 wearing a superman shirt.`nThe wedding march was Manowar - Heart of Steel`nTry to outnerd that.
 	}
 
