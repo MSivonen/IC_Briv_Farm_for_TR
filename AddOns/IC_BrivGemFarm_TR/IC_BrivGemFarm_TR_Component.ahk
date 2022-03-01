@@ -1,4 +1,4 @@
-;v0.461
+;v0.47
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -16,11 +16,13 @@ Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack 
 Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
 Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone?
 Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x15 y+5 gBOXavoid, Avoid bosses and/or barriers?
+
 Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
 Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
 Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
 Gui, ICScriptHub:Add, Edit, vTRForceZone x15 y+5 w50, % g_BrivUserSettings[ "TRForceZone" ]
 Gui, ICScriptHub:Add, Edit, vTRJumpZone x15 y+5 w50, % g_BrivUserSettings[ "TRJumpZone" ]
+Gui, ICScriptHub:Add, Edit, vTRexactStack x15 y+5 w50, % g_BrivUserSettings[ "TRexactStack" ]
 
 
 
@@ -40,6 +42,7 @@ Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Farm SB stacks after this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Minimum zone Briv can farm SB stacks on
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Force reset after this zone
 Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Jump only from this zone, mod5
+Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Walk this many levels to stack level
 
 Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
 Gui, ICScriptHub:Add, Button , x15 y+5 gViewLogButtonClicked, View ResetLog
@@ -67,7 +70,7 @@ Gui, ICScriptHub:Add, Text, x+2 w100 vAvgStacksTXT
 ;*************LOG
 
 
-Gui, ICScriptHub:Add, Text, x15 y+100, Start Temporal Rift with this, if you already completed it.
+Gui, ICScriptHub:Add, Text, x15 y600, Start Temporal Rift with this, if you already completed it.
 Gui, ICScriptHub:Add, Button, x15 y+5  gStart_TR, Start TR
 Gui, ICScriptHub:Add, Button, x15 y+5  gFirstRun, Setup user details
 
@@ -98,6 +101,7 @@ BOXdynamic() ;Disables check/text boxes when clicked
 	If TRMod = 1
 		{
 		GuiControl, Enable, TRForceZone
+		GuiControl, Enable, TRexactStack
 		GuiControl, Enable, EarlyStacking
 			If EarlyStacking = 1
 			{
@@ -118,6 +122,7 @@ BOXdynamic() ;Disables check/text boxes when clicked
 	Else If TRMod = 0
 		{
 		GuiControl, Disable, TRHaste
+		GuiControl, Disable, TRexactStack
 		GuiControl, Disable, EarlyStacking
 		GuiControl, Disable, TRForceZone	
 		GuiControl, Disable, EarlyDashWait
@@ -136,12 +141,14 @@ BOXstack()
 	If EarlyStacking = 1
 		{
 		GuiControl, Enable, TRHaste
+		GuiControl, Enable, TRexactStack
 		GuiControl, Enable, StackZone
 		GuiControl, Enable, EarlyDashWait
 		}
 	Else If EarlyStacking = 0
 		{
 		GuiControl, Disable, StackZone	
+		GuiControl, Disable, TRexactStack	
 		GuiControl, Disable, EarlyDashWait	
 		GuiControl, Disable, TRHaste
 		}
@@ -194,6 +201,7 @@ UpdateTRGUI() ;Disables check/text boxes when script is loaded
 			GuiControl, ICScriptHub:Enable, EarlyStacking
 			GuiControl, ICScriptHub:Enable, TRForce
 			GuiControl, ICScriptHub:Enable, TRAvoid
+			GuiControl, ICScriptHub:Enable, TRexactStack
 			}
 			If % g_BrivUserSettings[ "TRForce" ] = 0
 				{
@@ -208,6 +216,7 @@ UpdateTRGUI() ;Disables check/text boxes when script is loaded
 				GuiControl, ICScriptHub:Disable, StackZone
 				GuiControl, ICScriptHub:Disable, TRHaste
 				GuiControl, ICScriptHub:Disable, EarlyDashWait	
+				GuiControl, ICScriptHub:Disable, TRexactStack
 				}
 
 		}
@@ -304,6 +313,7 @@ TR_Save_Clicked()
         g_BrivUserSettings[ "TRForce" ] := TRForce
         g_BrivUserSettings[ "TRJumpZone" ] := TRJumpZone
         g_BrivUserSettings[ "TRAvoid" ] := TRAvoid
+        g_BrivUserSettings[ "TRexactStack" ] := TRexactStack
 		
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
         try ; avoid thrown errors when comobject is not available.

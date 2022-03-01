@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.461
+ver 0.47
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
@@ -35,7 +35,9 @@ Force reset after specified zone: If your click wall is lower than the zone Briv
 Previous resets are stored in trlog.json file.</br>
 </br>
 Avoid bosses/barriers checkbox and Jump only from this zone mod5: When enabled, the party will walk with e formation to desired jump zone and jump with q formation from there.</br>
-For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48.
+For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48.</br>
+</br>
+Walk this many levels to stacking zone: With this, you'll walk in e formation to "stack after this zone" (+1 zone, because it's AFTER) and you can use potions after early stacking. Set to 0 to disable.
 
 ---
 
@@ -65,3 +67,4 @@ v0.45 sb stacks log</br>
 v0.451 temporary quick fix for logs not loading</br>
 v0.46 Avoid barriers and bosses</br>
 v0.461 fixed disabling gui items</br>
+v0.47 Walk to early stack zone</br>

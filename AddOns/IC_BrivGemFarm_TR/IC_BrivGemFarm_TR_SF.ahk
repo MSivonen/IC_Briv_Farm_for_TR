@@ -1,4 +1,4 @@
-;v0.46
+;v0.47
 
 class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends IC_SharedFunctions_Class ; note to self: do not extend the wrong class you british word for donkey
 {
@@ -7,12 +7,11 @@ class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends
     BenchBrivConditions(settings)
      {
          if (g_BrivUserSettings[ "TRAvoid" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) != 2 ) ;Decide between walk or jump to next level
-        {
-            ;msgbox bench
-            ;bench briv
             return true
-        }
-         
+
+        if (g_BrivUserSettings[ "TRexactStack" ] > 0 AND g_SF.Memory.ReadCurrentZone() <= g_BrivUserSettings[ "StackZone" ] +1)
+            if (g_SF.Memory.ReadCurrentZone() >= g_BrivUserSettings[ "StackZone" ] - g_BrivUserSettings[ "TRexactStack" ] AND g_SF.Memory.ReadCurrentZone() AND g_BrivUserSettings[ "EarlyStacking" ] )
+                return true
         ;bench briv if jump animation override is added to list and it isn't a quick transition (reading ReadFormationTransitionDir makes sure QT isn't read too early)
         if (this.Memory.ReadTransitionOverrideSize() == 1 AND this.Memory.ReadTransitionDirection() != 2 AND this.Memory.ReadFormationTransitionDir() == 3 )
             return true
@@ -34,12 +33,12 @@ class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends
     ; True/False on whether Briv should be unbenched based on game conditions.
     UnBenchBrivConditions(settings)
     {
-         if (g_BrivUserSettings[ "TRAvoid" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) != 2) ;Decide between walk or jump to next level
-        {
-            ;unbench briv
+        if (g_BrivUserSettings[ "TRAvoid" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) != 2) ;Decide between walk or jump to next level
             return false
-        }
-         
+        if (g_BrivUserSettings[ "TRexactStack" ] > 0 AND g_SF.Memory.ReadCurrentZone() <= g_BrivUserSettings[ "StackZone" ] +1)
+            if (g_SF.Memory.ReadCurrentZone() >= g_BrivUserSettings[ "StackZone" ] - g_BrivUserSettings[ "TRexactStack" ] AND g_SF.Memory.ReadCurrentZone() AND g_BrivUserSettings[ "EarlyStacking" ] )
+                return false
+       
         ;keep Briv benched if 'Avoid Bosses' setting is enabled and on a boss zone
         if (settings[ "AvoidBosses" ] AND !Mod( this.Memory.ReadCurrentZone(), 5 ))
             return false
