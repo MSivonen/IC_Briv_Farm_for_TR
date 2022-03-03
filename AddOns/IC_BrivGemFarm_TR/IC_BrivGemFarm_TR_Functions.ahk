@@ -14,7 +14,7 @@ class TRClass extends IC_BrivGemFarm_Class
         stackfail := 0
         forcedReset := false
         forcedResetReason := ""
-
+        this.checkModron()
 	
 		;Early stacking
 		if ( g_BrivUserSettings[ "EarlyStacking" ] AND stacks < g_BrivUserSettings[ "TargetStacks" ] AND CurrentZone > g_BrivUserSettings[ "StackZone" ] AND g_SF.Memory.ReadHasteStacks() > g_BrivUserSettings[ "TRHaste" ]  )
@@ -102,4 +102,17 @@ class TRClass extends IC_BrivGemFarm_Class
         g_PreviousZoneStartTime := A_TickCount
         return
     }
+
+    checkModron() ;check if dash wait fails because of modron reset level
+	{
+		g_SF.ModronResetZone := g_SF.Memory.GetCoreTargetAreaByInstance(g_SF.Memory.ReadActiveGameInstance())
+		global EarlyStacking
+		if ( global g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ] < g_BrivUserSettings[ "StackZone" ] )
+		{
+			if ( g_BrivUserSettings[ "EarlyStacking" ] )
+			{
+				msgbox Modron reset zone + DashWaitBuffer is larger than your stacking zone resulting dash wait after stacking to fail. Raise your in game modron reset level.
+			}
+		}
+	}
 }

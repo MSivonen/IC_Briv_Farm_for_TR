@@ -13,6 +13,7 @@ Gui, ICScriptHub:Font, w400
 
 Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use dynamic reset zone (enable this addon)?
 Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
+Gui, ICScriptHub:Add, Checkbox, vVanillaDashWait Checked%VanillaDashWait% x15 y+5 gBOXvanillaDashWait, Use dash wait at start?
 Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
 Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone?
 Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x15 y+5 gBOXavoid, Avoid bosses and/or barriers?
@@ -139,7 +140,6 @@ BOXstack()
 	Gui, Submit, NoHide
 	If EarlyStacking = 1
 		{
-		checkModron()
 		GuiControl, Enable, TRHaste
 		GuiControl, Enable, TRexactStack
 		GuiControl, Enable, StackZone
@@ -169,7 +169,20 @@ BOXforce()
 		}
 	Return
 	}
-
+BOXvanillaDashWait()
+	{
+	global
+	Gui, Submit, NoHide
+	If VanillaDashWait = 1
+		{
+		GuiControl,ICScriptHub:, DisableDashWaitCheck, 0
+		}
+	Else If VanillaDashWait = 0
+		{
+		GuiControl,ICScriptHub:, DisableDashWaitCheck, 1
+		}
+	Return
+	}
 BOXavoid()
 	{
 	global
@@ -242,6 +255,7 @@ UpdateGUICheckBoxesTR() ;update gui according to settings file
         GuiControl,ICScriptHub:, EarlyStacking, % g_BrivUserSettings[ "EarlyStacking" ]
         GuiControl,ICScriptHub:, EarlyDashWait, % g_BrivUserSettings[ "EarlyDashWait" ]
         GuiControl,ICScriptHub:, TRAvoid, % g_BrivUserSettings[ "TRAvoid" ]
+		GuiControl,ICScriptHub:, VanillaDashWait, % !g_BrivUserSettings[ "DisableDashWait" ]
     }
 
 
@@ -314,6 +328,7 @@ TR_Save_Clicked() ;save settings
         g_BrivUserSettings[ "TRJumpZone" ] := TRJumpZone
         g_BrivUserSettings[ "TRAvoid" ] := TRAvoid
         g_BrivUserSettings[ "TRexactStack" ] := TRexactStack
+        g_BrivUserSettings[ "DisableDashWait" ] := DisableDashWaitCheck
 		
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
         try ; avoid thrown errors when comobject is not available.
@@ -365,11 +380,4 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 		else
 			MsgBox ,0,TRMod NOT installed, It will not work.
 		}
-	}
-checkModron() ;check if dash wait fails because of modron reset level
-	{
-		global EarlyStacking
-		if ( g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ] < g_BrivUserSettings[ "StackZone" ] )
-			if ( EarlyStacking == 1 OR g_BrivUserSettings[ "EarlyStacking" ] )
-			msgbox Modron reset zone + DashWaitBuffer is larger than your stacking zone resulting dash wait after stacking to fail. Raise your in game modron reset level.
 	}
