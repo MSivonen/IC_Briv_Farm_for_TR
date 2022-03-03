@@ -1,4 +1,4 @@
-;v0.47
+;v0.472
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -30,7 +30,6 @@ Gui, ICScriptHub:Add, Edit, vTRexactStack x15 y+5 w50, % g_BrivUserSettings[ "TR
 
 UpdateGUICheckBoxesTR()
 UpdateTRGUI()
-
 FindIncluded()
 
 
@@ -140,6 +139,7 @@ BOXstack()
 	Gui, Submit, NoHide
 	If EarlyStacking = 1
 		{
+		checkModron()
 		GuiControl, Enable, TRHaste
 		GuiControl, Enable, TRexactStack
 		GuiControl, Enable, StackZone
@@ -293,13 +293,13 @@ DeleteStacksLogButtonClicked()
 	}
 	
 
-DelinaButtonClicked()
+DelinaButtonClicked() ;button for testing shit
 	{
 		UpdateTRGUI()
 		msgbox,I got married on 22.2.22 wearing a superman shirt.`nThe wedding march was Manowar - Heart of Steel`nTry to outnerd that.
 	}
 
-TR_Save_Clicked()
+TR_Save_Clicked() ;save settings
     {
         global
         Gui, ICScriptHub:Submit, NoHide
@@ -365,4 +365,11 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 		else
 			MsgBox ,0,TRMod NOT installed, It will not work.
 		}
+	}
+checkModron() ;check if dash wait fails because of modron reset level
+	{
+		global EarlyStacking
+		if ( g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ] < g_BrivUserSettings[ "StackZone" ] )
+			if ( EarlyStacking == 1 OR g_BrivUserSettings[ "EarlyStacking" ] )
+			msgbox Modron reset zone + DashWaitBuffer is larger than your stacking zone resulting dash wait after stacking to fail. Raise your in game modron reset level.
 	}
