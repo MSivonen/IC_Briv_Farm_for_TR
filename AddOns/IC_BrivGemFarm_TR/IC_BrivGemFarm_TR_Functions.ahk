@@ -2,6 +2,7 @@
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
 global PrevStacksObject = new TR_Prev_Stacks
+global modronChecked = False
 
 class TRClass extends IC_BrivGemFarm_Class
 {
@@ -14,7 +15,11 @@ class TRClass extends IC_BrivGemFarm_Class
         stackfail := 0
         forcedReset := false
         forcedResetReason := ""
-        this.checkModron()
+        if (!modronChecked)
+            {
+            this.checkModron()
+            modronChecked := True
+            }
 	
 		;Early stacking
 		if ( g_BrivUserSettings[ "EarlyStacking" ] AND stacks < g_BrivUserSettings[ "TargetStacks" ] AND CurrentZone > g_BrivUserSettings[ "StackZone" ] AND g_SF.Memory.ReadHasteStacks() > g_BrivUserSettings[ "TRHaste" ]  )
