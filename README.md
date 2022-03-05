@@ -68,5 +68,5 @@ v0.46 Avoid barriers and bosses</br>
 v0.461 fixed disabling gui items</br>
 v0.47 Walk to early stack zone</br>
 v.0471 If out of stacks at a boss level, complete it before reset.</br>
-v.0472 "fixed" issue with modron reset level and dash wait
-v.5 GUI rework
+v.0472 "fixed" issue with modron reset level and dash wait</br>
+v.5 GUI rework</br>
