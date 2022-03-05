@@ -8,8 +8,6 @@ Modified gem farm for temporal rift (not tested on other variants)</br>
 This addon detects when you run out of haste stacks and does stacking and restarts the adventure at that point.</br>
 Early stacking is supported</br>
 Some failsafe resets are removed</br>
-More stuff will be added</br>
-The gui is becoming a mess. Wip. </br>
 
 ---
  </br>
