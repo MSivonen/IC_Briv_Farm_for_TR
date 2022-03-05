@@ -18,6 +18,8 @@ Copy IC_BrivGemFarm_TR directory to your (Briv Gem Farm)\AddOns directory (shoul
 At first run it writes one line to IC_BrivGemFarm_Settings.ahk:</br>
  #include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk</br>
 If you remove this mod, you may want to remove that line also. You don't have to.</br>
+At first run it also has some popups, which should be self-explanatory, or can be ignored by pressing yes yes yes yes ok ok ok ok.</br>
+Some of it is related to Start Adventure button. Read this readme if needed: https://github.com/MSivonen/TR_Button </br>
  </br>
 Note: When updating IC Briv Gem Farm with Github Desktop, the AddOns folder will be reverted to original, ie. this mod will be deleted.</br>
 </br>
@@ -39,10 +41,6 @@ Avoid bosses/barriers checkbox and Jump only from this zone mod5: When enabled, 
 For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48.</br>
 </br>
 Walk this many levels to stacking zone: With this, you'll walk in e formation to "stack after this zone" (+1 zone, because it's AFTER) and you can use potions after early stacking. Set to 0 to disable.
-
----
-
-v0.44 added Start TR button. Read this readme for more: https://github.com/MSivonen/TR_Button
 
 ---
 
