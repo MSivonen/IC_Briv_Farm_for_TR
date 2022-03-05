@@ -12,7 +12,9 @@ Some failsafe resets are removed</br>
 ---
  </br>
  </br>
-Installation: Copy IC_BrivGemFarm_TR directory to your Briv Gem Farm\AddOns directory (should look like \AddOns\IC_BrivGemFarm_TR\) and enable the addon with IC Script Hub's addon manager or any other way you like.</br>
+Installation: </br>
+You need to have Autohotkey and ICScriptHub installed. Links below. </br>
+Copy IC_BrivGemFarm_TR directory to your (Briv Gem Farm)\AddOns directory (should look like \AddOns\IC_BrivGemFarm_TR\) and enable the addon with IC Script Hub's addon manager or any other way you like.</br>
 At first run it writes one line to IC_BrivGemFarm_Settings.ahk:</br>
  #include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk</br>
 If you remove this mod, you may want to remove that line also. You don't have to.</br>
@@ -46,6 +48,7 @@ v0.44 added Start TR button. Read this readme for more: https://github.com/MSivo
 
 If you need help, ask here: https://discord.com/invite/N3U8xtB</br>
 IC Script Hub can be found here: https://github.com/mikebaldi/Idle-Champions/</br>
+Autohotkey: https://www.autohotkey.com/
 If you want to use any parts of this code to any non-profit purpose, feel free to do so.</br>
 
 ---
