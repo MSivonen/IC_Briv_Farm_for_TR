@@ -45,7 +45,7 @@ v0.44 added Start TR button. Read this readme for more: https://github.com/MSivo
 ---
 
 If you need help, ask here: https://discord.com/invite/N3U8xtB</br>
-IC Script Hub can be found here: https://github.com/mikebaldi/Idle-Champions/tree/IC-Script-Hub-Public</br>
+IC Script Hub can be found here: https://github.com/mikebaldi/Idle-Champions/</br>
 If you want to use any parts of this code to any non-profit purpose, feel free to do so.</br>
 
 ---
