@@ -31,7 +31,7 @@ Usage:</br>
 "Reset after stacking if haste stacks is less than this" for early stacking. Ignored if dynamic reset zone is unchecked.</br>
 Many times when changing adventures and come back, I got 70 stacks left, then stack/restart, then use the few remaining stacks and then restart the adventure. If you don't like it, set it to 0.</br>
 In-game Modron core reset level is ignored when playing any variant, including Temporal Rift (that's kinda why I made this thing).</br>
-But you need to set it to high-ish level for dash wait to work. Reset enabled or not.</br>
+But you need to set it to high-ish level for dash wait to work. Reset enabled or not doesn't matter.</br>
 </br>
 Force reset after specified zone: If your click wall is lower than the zone Briv can reach, or if you start gem farm at high level and high number of stacks, (or any other reason), you can set the reset level yourself. If you run out of stacks before this level, the adventure will restart. Recommended to set this just a bit under your click wall to be safe.</br>
 </br>
