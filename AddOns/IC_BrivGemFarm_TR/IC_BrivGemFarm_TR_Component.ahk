@@ -11,9 +11,9 @@ Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Picture, x0 y50 w500 h234 , %A_LineFile%\..\trmod3.gif
 Gui, ICScriptHub:Font, w400
 
-Gui, Add, GroupBox, x22 y302 w340 h200 c553300, 
-Gui, Add, GroupBox, x22 y509 w405 h110 , Logs
-Gui, Add, GroupBox, x22 y649 w280 h50 , Start Temporal Rift with this`, if you already completed it.
+Gui, Add, GroupBox, x22 y302 w340 h200 c000000, 
+Gui, Add, GroupBox, x22 y509 w405 h110 c000000, Logs
+Gui, Add, GroupBox, x22 y649 w280 h50 c000000, Start Temporal Rift with this`, if you already completed it.
 
 
 
