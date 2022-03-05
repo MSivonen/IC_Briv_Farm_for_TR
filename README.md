@@ -35,10 +35,8 @@ But you need to set it to high-ish level for dash wait to work. Reset enabled or
 </br>
 Force reset after specified zone: If your click wall is lower than the zone Briv can reach, or if you start gem farm at high level and high number of stacks, (or any other reason), you can set the reset level yourself. If you run out of stacks before this level, the adventure will restart. Recommended to set this just a bit under your click wall to be safe.</br>
 </br>
-Previous resets are stored in trlog.json file.</br>
-</br>
-Avoid bosses/barriers checkbox and Jump only from this zone mod5: When enabled, the party will walk with e formation to desired jump zone and jump with q formation from there.</br>
-For example with 3 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48.</br>
+Avoid bosses/barriers: When enabled, the party will walk with e formation to desired jump zone and jump with q formation from there.</br>
+For example with 3-4 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48. By my testing, you'll need a high-percentage 4J Briv for enabling this to be faster.</br>
 </br>
 Walk this many levels to stacking zone: With this, you'll walk in e formation to "stack after this zone" (+1 zone, because it's AFTER) and you can use potions after early stacking. Set to 0 to disable.
 
