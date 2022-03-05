@@ -14,7 +14,7 @@ The gui is becoming a mess. Wip. </br>
 ---
  </br>
  </br>
-Installation: Copy IC_BrivGemFarm_TR directory to your Briv Gem Farm\AddOns directory and enable the addon with IC Script Hub's addon manager or any other way you like.</br>
+Installation: Copy IC_BrivGemFarm_TR directory to your Briv Gem Farm\AddOns directory (should look like \AddOns\IC_BrivGemFarm_TR\) and enable the addon with IC Script Hub's addon manager or any other way you like.</br>
 At first run it writes one line to IC_BrivGemFarm_Settings.ahk:</br>
  #include *i %A_LineFile%\..\..\IC_BrivGemFarm_TR\IC_BrivGemFarm_TR_enable.ahk</br>
 If you remove this mod, you may want to remove that line also. You don't have to.</br>
