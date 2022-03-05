@@ -35,7 +35,7 @@ class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends
     {
         if (g_BrivUserSettings[ "TRAvoid" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) != g_BrivUserSettings[ "TRJumpZone" ] ) ;Decide between walk or jump to next level
             return false
-        if (g_BrivUserSettings[ "TRexactStack" ] > 0 AND g_SF.Memory.ReadCurrentZone() <= g_BrivUserSettings[ "StackZone" ] +1)
+        if (g_BrivUserSettings[ "TRexactStack" ] > 0 AND g_BrivUserSettings[ "TRexactStack" ] AND g_SF.Memory.ReadCurrentZone() <= g_BrivUserSettings[ "StackZone" ] +1)
             if (g_SF.Memory.ReadCurrentZone() >= g_BrivUserSettings[ "StackZone" ] - g_BrivUserSettings[ "TRexactStack" ] AND g_SF.Memory.ReadCurrentZone() AND g_BrivUserSettings[ "EarlyStacking" ] )
                 return false
        

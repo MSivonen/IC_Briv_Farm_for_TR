@@ -1,4 +1,4 @@
-;v0.472
+;v0.5
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -8,22 +8,28 @@ counter := new SecondCounter
 Gui, ICScriptHub:Tab, Briv TR
 
 Gui, ICScriptHub:Font, w700
-Gui, ICScriptHub:Add, Text, ,Briv Gem Farm for Temporal Rift
+Gui, ICScriptHub:Add, Picture, x0 y50 w500 h234 , %A_LineFile%\..\trmod3.gif
 Gui, ICScriptHub:Font, w400
 
-Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x15 y+15 gBOXdynamic, Use dynamic reset zone (enable this addon)?
-Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x15 y+5, Use early stacking?
-Gui, ICScriptHub:Add, Checkbox, vVanillaDashWait Checked%VanillaDashWait% x15 y+5 gBOXvanillaDashWait, Use dash wait at start?
-Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x15 y+5, Use dash wait after early stacking?
-Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x15 y+5 gBOXforce, Force reset after specified zone?
-Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x15 y+5 gBOXavoid, Avoid bosses and/or barriers?
+Gui, Add, GroupBox, x22 y302 w340 h200 c553300, 
+Gui, Add, GroupBox, x22 y509 w405 h110 , Logs
+Gui, Add, GroupBox, x22 y649 w280 h50 , Start Temporal Rift with this`, if you already completed it.
 
-Gui, ICScriptHub:Add, Edit, vTRHaste x15 y+5 w50, % g_BrivUserSettings[ "TRHaste" ]
-Gui, ICScriptHub:Add, Edit, vStackZone x15 y+5 w50, % g_BrivUserSettings[ "StackZone" ]
-Gui, ICScriptHub:Add, Edit, vMinZone x15 y+5 w50, % g_BrivUserSettings[ "MinStackZone" ]
-Gui, ICScriptHub:Add, Edit, vTRForceZone x15 y+5 w50, % g_BrivUserSettings[ "TRForceZone" ]
-Gui, ICScriptHub:Add, Edit, vTRJumpZone x15 y+5 w50, % g_BrivUserSettings[ "TRJumpZone" ]
-Gui, ICScriptHub:Add, Edit, vTRexactStack x15 y+5 w50, % g_BrivUserSettings[ "TRexactStack" ]
+
+
+Gui, ICScriptHub:Add, Checkbox, vTRMod Checked%TRMod%  x32 y299 w90 h20 gBOXdynamic, Addon enabled
+Gui, ICScriptHub:Add, Checkbox, vEarlyStacking Checked%EarlyStacking% gBOXstack x72 y409 w210 h20, Use early stacking? Stack after level:
+Gui, ICScriptHub:Add, Checkbox, vVanillaDashWait Checked%VanillaDashWait% x32 y379 w150 h20 gBOXvanillaDashWait, Use dash wait at start?
+Gui, ICScriptHub:Add, Checkbox, vEarlyDashWait Checked%EarlyDashWait% gBOXstack x72 y429 w200 h20, Use dash wait after early stacking?
+Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x32 y319 w150 h20 gBOXforce, Force reset after this zone:
+Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x32 y339 w240 h20 gBOXavoid, Avoid bosses and/or barriers? Jump from level:
+
+Gui, ICScriptHub:Add, Edit, vTRHaste x302 y469 w50 h20, % g_BrivUserSettings[ "TRHaste" ]
+Gui, ICScriptHub:Add, Edit, vStackZone x302 y409 w50 h20, % g_BrivUserSettings[ "StackZone" ]
+Gui, ICScriptHub:Add, Edit, vMinZone x302 y359 w50 h20, % g_BrivUserSettings[ "MinStackZone" ]
+Gui, ICScriptHub:Add, Edit, vTRForceZone x302 y319 w50 h20, % g_BrivUserSettings[ "TRForceZone" ]
+Gui, ICScriptHub:Add, Edit, vTRJumpZone x302 y339 w50 h20, % g_BrivUserSettings[ "TRJumpZone" ]
+Gui, ICScriptHub:Add, Edit, vTRexactStack x302 y449 w50 h20, % g_BrivUserSettings[ "TRexactStack" ]
 
 
 
@@ -37,44 +43,42 @@ FindIncluded()
 GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
 xyValX += 55
 xyValY += 4
-Gui, ICScriptHub:Add, Text, x%xyValX% y%xyValY%+9, Reset immediately after stacking if haste stacks is less than this
-Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Farm SB stacks after this zone
-Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Minimum zone Briv can farm SB stacks on
-Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Force reset after this zone
-Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Jump only from this zone, mod5
-Gui, ICScriptHub:Add, Text, x%xyValX% y+13, Walk this many levels to stack level
+Gui, ICScriptHub:Add, Text, x89 y469 w180 h30, Reset immediately after stacking if haste stacks is less than this
+Gui, ICScriptHub:Add, Text, x48 y362 w200 h20, Minimum zone Briv can farm SB stacks on
+Gui, ICScriptHub:Add, Text, x89 y451 w170 h15, Walk this many levels to stack level
 
-Gui, ICScriptHub:Add, Button, x15 y+15 gTR_Save_Clicked, Save Settings
-Gui, ICScriptHub:Add, Button , x15 y+5 gViewLogButtonClicked, View ResetLog
-Gui, ICScriptHub:Add, Button , x+15 gDeleteLogButtonClicked, Clear ResetLog
-Gui, ICScriptHub:Add, Button , x15 y+5 gViewStacksLogButtonClicked, View StacksLog
-Gui, ICScriptHub:Add, Button , x+15 gDeleteStacksLogButtonClicked, Clear StacksLog
-Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix)
-Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
+Gui, ICScriptHub:Add, Button, x362 y339 w50 h130 gTR_Save_Clicked, Save Settings
+Gui, ICScriptHub:Add, Button , x242 y549 w90 h20 gViewLogButtonClicked, View ResetLog
+Gui, ICScriptHub:Add, Button , x332 y549 w90 h20 gDeleteLogButtonClicked, Clear ResetLog
+Gui, ICScriptHub:Add, Button , x242 y569 w90 h20 gViewStacksLogButtonClicked, View StacksLog
+Gui, ICScriptHub:Add, Button , x332 y569 w90 h20 gDeleteStacksLogButtonClicked, Clear StacksLog
+;Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix)
+;Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
+Gui, Add, Button, x267 y250 w70 h50 gBriv_Run_Clicked, Start gem farm
+Gui, Add, Button, x+5 y250 w70 h50 gBriv_Run_Stop_Clicked, Stop gem farm
 
 
 ;*************LOG
 
-Gui, ICScriptHub:Add, Text, x15 y+25, Previous reset zone: 
-Gui, ICScriptHub:Add, Text, x+2 w100 vPrevTXT
+Gui, ICScriptHub:Add, Text, x32 y529 w100 h20, Previous reset zone: 
+Gui, ICScriptHub:Add, Text, x202 y529 w40 h20 vPrevTXT
 
-Gui, ICScriptHub:Add, Text, x15 y+5, Average reset zone (previous 10):
-Gui, ICScriptHub:Add, Text, x+2 w100 vAvgTXT
+Gui, ICScriptHub:Add, Text, x32 y549 w160 h20, Average reset zone (previous 10):
+Gui, ICScriptHub:Add, Text, x202 y549 w40 h20 vAvgTXT
 
-Gui, ICScriptHub:Add, Text, x15 y+5, Previous stacks: 
-Gui, ICScriptHub:Add, Text, x+2 w100 vPrevStacksTXT
+Gui, ICScriptHub:Add, Text, x32 y569 w90 h20, Previous stacks: 
+Gui, ICScriptHub:Add, Text, x202 y569 w40 h20 vPrevStacksTXT
 
-Gui, ICScriptHub:Add, Text, x15 y+5, Average stacks (previous 10):
-Gui, ICScriptHub:Add, Text, x+2 w100 vAvgStacksTXT
+Gui, ICScriptHub:Add, Text, x32 y589 w150 h20, Average stacks (previous 10):
+Gui, ICScriptHub:Add, Text, x202 y589 w40 h20 vAvgStacksTXT
 
 ;*************LOG
 
 
-Gui, ICScriptHub:Add, Text, x15 y600, Start Temporal Rift with this, if you already completed it.
-Gui, ICScriptHub:Add, Button, x15 y+5  gStart_TR, Start TR
-Gui, ICScriptHub:Add, Button, x15 y+5  gFirstRun, Setup user details
+Gui, ICScriptHub:Add, Button, x60 y669 w80 h20  gStart_TR, Start adventure
+Gui, ICScriptHub:Add, Button, x170 y669 w90 h20  gFirstRun, Setup user details
 
-Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
+;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
 counter.Start()
