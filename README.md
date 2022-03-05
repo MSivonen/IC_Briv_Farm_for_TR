@@ -38,17 +38,17 @@ Force reset after specified zone: If your click wall is lower than the zone Briv
 Avoid bosses/barriers: When enabled, the party will walk with e formation to desired jump zone and jump with q formation from there.</br>
 For example with 3-4 jump Briv, set it to 2. You'll walk to zone 2, 7, 12, 17 etc and jump to zone 1, 6, 11, 16 etc. Repeat until end. You'll avoid all the bosses and the barriers at zones 3 and 48. By my testing, you'll need a high-percentage 4J Briv for enabling this to be faster.</br>
 </br>
-Walk this many levels to stacking zone: With this, you'll walk in e formation to "stack after this zone" (+1 zone, because it's AFTER) and you can use potions after early stacking. Set to 0 to disable.
-
----
-
+Walk this many levels to stacking zone: With this, you'll walk in e formation to "stack after this zone" (+1 zone, because it's AFTER) and you can use potions after early stacking. Set to 0 to disable.</br>
+</br>
+---</br>
+</br>
 If you need help, ask here: https://discord.com/invite/N3U8xtB</br>
 IC Script Hub can be found here: https://github.com/mikebaldi/Idle-Champions/</br>
-Autohotkey: https://www.autohotkey.com/
+Autohotkey: https://www.autohotkey.com/ </br>
 If you want to use any parts of this code to any non-profit purpose, feel free to do so.</br>
-
----
-
+</br>
+---</br>
+</br>
 v0.1a initial release</br>
 v0.2 added support for early stacking</br>
 v0.21 minor update</br>
