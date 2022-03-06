@@ -1,4 +1,4 @@
-;v0.472
+;v0.501
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
 global PrevRSTobject = new TR_Prev_Reset
 global PrevStacksObject = new TR_Prev_Stacks
@@ -9,7 +9,7 @@ class TRClass extends IC_BrivGemFarm_Class
     TestForSteelBonesStackFarming()
     {
 ;				    msgbox "TEST TRSTACK modified"
-
+        EarlyStackingWaitDone := false
         CurrentZone := g_SF.Memory.ReadCurrentZone()
         stacks := g_SF.Memory.ReadSBStacks()
         stackfail := 0
@@ -21,6 +21,15 @@ class TRClass extends IC_BrivGemFarm_Class
             modronChecked := True
             }
 	
+        ;dash wait one level after early stacking: Can use potion before wait
+        currentFormation := g_SF.Memory.GetCurrentFormation()
+        isShandieInFormation := g_SF.IsChampInFormation( 47, currentFormation )
+        if ( g_BrivUserSettings[ "EarlyStacking" ] AND isShandieInFormation AND CurrentZone > g_BrivUserSettings[ "StackZone" ] +1 AND !EarlyStackingWaitDone AND g_BrivUserSettings[ "EarlyDashWait" ])
+            {
+            g_SF.DoDashWait()
+            EarlyStackingWaitDone = true
+            }
+
 		;Early stacking
 		if ( g_BrivUserSettings[ "EarlyStacking" ] AND stacks < g_BrivUserSettings[ "TargetStacks" ] AND CurrentZone > g_BrivUserSettings[ "StackZone" ] AND g_SF.Memory.ReadHasteStacks() > g_BrivUserSettings[ "TRHaste" ]  )
 			{
@@ -54,10 +63,6 @@ class TRClass extends IC_BrivGemFarm_Class
             this.StackRestart()
         else if (stacks < g_BrivUserSettings[ "TargetStacks" ])
             this.StackNormal()
-        currentFormation := g_SF.Memory.GetCurrentFormation()
-        isShandieInFormation := g_SF.IsChampInFormation( 47, currentFormation )
-        if ( g_BrivUserSettings[ "EarlyStacking" ] AND isShandieInFormation AND g_BrivUserSettings[ "EarlyDashWait" ] )
-            g_SF.DoDashWait()
     }
 	
 	StackRestart()

@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.5
+ver 0.501
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
@@ -70,3 +70,4 @@ v0.47 Walk to early stack zone</br>
 v.0471 If out of stacks at a boss level, complete it before reset.</br>
 v.0472 "fixed" issue with modron reset level and dash wait</br>
 v.5 GUI rework</br>
+v.501 after early stacking, delay dash wait for one level, so you can use potions before wait
