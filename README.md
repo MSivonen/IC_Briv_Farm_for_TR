@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.5
+ver 0.501
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
