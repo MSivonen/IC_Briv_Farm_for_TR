@@ -1,4 +1,5 @@
-﻿global VersionNumber := "2.00"
+﻿;v0.51
+global VersionNumber := "2.00"
 global CurrentDictionary := "2.00"
 
 ;Local File globals
@@ -146,6 +147,27 @@ Save_Settings()
 		sResult := ServerCall("setcurrentobjective", advparams)
 		GetUserDetails()
 		msgbox Selected adventure has been loaded.`nSwitch to bg party and back.
+		return
+	}
+
+	LoadAdventure_automatic() 
+	{
+		GetUserDetails()
+		
+		while !(CurrentAdventure == "-1") {
+			MsgBox, 5, , Please end your current adventure first.`nSomething went wrong.
+			; IfMsgBox Cancel
+			; return
+		}
+		advtoload := 592
+		patrontoload := 0
+
+		advparams := DummyData "&patron_tier=0&user_id=" UserID "&hash=" UserHash "&instance_id=" InstanceID "&game_instance_id=" ActiveInstance "&adventure_id=" advtoload "&patron_id=" patrontoload
+		sResult := ServerCall("setcurrentobjective", advparams)
+        while ( WinExist( "ahk_exe IdleDragons.exe" ) ) ; Kill after 10 seconds.
+            WinKill
+        programLoc := g_UserSettings[ "InstallPath" ] . g_UserSettings ["ExeName" ]
+            Run, %programLoc%
 		return
 	}
 

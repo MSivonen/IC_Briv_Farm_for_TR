@@ -1,9 +1,10 @@
-;v0.5
+;v0.51
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
 global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
 counter := new SecondCounter
+global prevtime := A_TickCount
 
 Gui, ICScriptHub:Tab, Briv TR
 
@@ -77,10 +78,26 @@ Gui, ICScriptHub:Add, Text, x202 y589 w40 h20 vAvgStacksTXT
 Gui, ICScriptHub:Add, Button, x60 y632 w80 h20 gStart_TR, Start adventure
 Gui, ICScriptHub:Add, Button, x170 y632 w90 h20 gFirstRun, Setup user details
 
-;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
+Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
 counter.Start()
+
+
+OnMessage(0x5555, "MsgMonitor")
+OnMessage(0x5556, "MsgMonitor")
+
+MsgMonitor(wParam, lParam, msg)
+{
+    ; Since returning quickly is often important, it is better to use ToolTip than
+    ; something like MsgBox that would prevent the function from finishing:
+    ;Msgbox Message %msg% arrived:`nWPARAM: %wParam%`nLPARAM: %lParam%
+	LoadAdventure_automatic()
+	sleep,30000
+	Briv_Run_Stop_Clicked()
+	sleep,1000
+	Briv_Run_Clicked()
+}
 
 UpdateTRLOG()
 	{
@@ -314,8 +331,9 @@ DeleteStacksLogButtonClicked()
 
 DelinaButtonClicked() ;button for testing shit
 	{
-		UpdateTRGUI()
-		msgbox,I got married on 22.2.22 wearing a superman shirt.`nThe wedding march was Manowar - Heart of Steel`nTry to outnerd that.
+	LoadAdventure_automatic()
+    g_SF.RestartAdventure( "TR at world map" )
+
 	}
 
 TR_Save_Clicked() ;save settings
@@ -330,10 +348,16 @@ TR_Save_Clicked() ;save settings
         g_BrivUserSettings[ "EarlyDashWait" ] := EarlyDashWait
         g_BrivUserSettings[ "TRForceZone" ] := TRForceZone
         g_BrivUserSettings[ "TRForce" ] := TRForce
-        g_BrivUserSettings[ "TRJumpZone" ] := TRJumpZone
         g_BrivUserSettings[ "TRAvoid" ] := TRAvoid
-        g_BrivUserSettings[ "TRexactStack" ] := TRexactStack
         g_BrivUserSettings[ "DisableDashWait" ] := DisableDashWaitCheck
+		if !TRexactStack
+        	g_BrivUserSettings[ "TRexactStack" ] := 0
+		else
+        	g_BrivUserSettings[ "TRexactStack" ] := TRexactStack
+		if !TRJumpZone
+	    	g_BrivUserSettings[ "TRJumpZone" ] := 0
+		else
+ 	    	g_BrivUserSettings[ "TRJumpZone" ] := TRJumpZone
 		
         g_SF.WriteObjectToJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" , g_BrivUserSettings )
         try ; avoid thrown errors when comobject is not available.

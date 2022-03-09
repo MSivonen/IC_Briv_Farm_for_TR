@@ -1,8 +1,10 @@
-;v0.472
+;v0.51
+;#Include, %A_LineFile%\..\Start_TR_Button.ahk
+;#include, %A_LineFile%\..\idledict.ahk
 
 class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends IC_SharedFunctions_Class ; note to self: do not extend the wrong class you british word for donkey
 {
-
+    TRprevTime := A_TickCount
 
     BenchBrivConditions(settings)
      {
@@ -58,5 +60,43 @@ class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends
 
         return false
     } 
+
+    VerifyAdventureLoaded()
+    {
+        CurrentObjID := this.Memory.ReadCurrentObjID()
+        if ( CurrentObjID == "" OR CurrentObjID <= 0 )
+            {
+                MsgBox, 1,, At world map? Starting TR in 30sec, 30
+                IfMsgBox Ok
+                {
+                    SetTitleMatchMode 2
+                    DetectHiddenWindows On
+                    if WinExist("ICScriptHub.ahk ahk_class AutoHotkey")
+                        PostMessage, 0x5555, 11, 22  ; The message is sent  to the "last found window" due to WinExist() above.
+                    DetectHiddenWindows Off 
+                }
+
+                IfMsgBox Timeout
+                {
+                    SetTitleMatchMode 2
+                    DetectHiddenWindows On
+                    if WinExist("ICScriptHub.ahk ahk_class AutoHotkey")
+                        PostMessage, 0x5555, 11, 22  ; The message is sent  to the "last found window" due to WinExist() above.
+                    DetectHiddenWindows Off
+                }
+
+                IfMsgBox Cancel
+                {
+                    MsgBox, Stopping run.
+                    return -1
+                }
+
+            }
+
+
+
+        return CurrentObjID
+
+    }
 
 }
