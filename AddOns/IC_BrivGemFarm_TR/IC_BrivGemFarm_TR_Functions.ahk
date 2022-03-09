@@ -3,13 +3,13 @@
 global PrevRSTobject = new TR_Prev_Reset
 global PrevStacksObject = new TR_Prev_Stacks
 global modronChecked = False
+global EarlyStackingWaitDone := false
 
 class TRClass extends IC_BrivGemFarm_Class
 {
     TestForSteelBonesStackFarming()
     {
 ;				    msgbox "TEST TRSTACK modified"
-        EarlyStackingWaitDone := false
         CurrentZone := g_SF.Memory.ReadCurrentZone()
         stacks := g_SF.Memory.ReadSBStacks()
         stackfail := 0
@@ -43,6 +43,7 @@ class TRClass extends IC_BrivGemFarm_Class
 			this.StackFarm()
    			PrevStacksObject.setPrevReset(stacks)
 			g_SF.RestartAdventure( "TR reset" )
+            EarlyStackingWaitDone := false
 			}
 			
 		;Forced reset
@@ -52,6 +53,7 @@ class TRClass extends IC_BrivGemFarm_Class
 			this.StackFarm()
     		PrevStacksObject.setPrevReset(stacks)
 			g_SF.RestartAdventure( "TR forced reset" )
+            EarlyStackingWaitDone := false
 			}
         
 

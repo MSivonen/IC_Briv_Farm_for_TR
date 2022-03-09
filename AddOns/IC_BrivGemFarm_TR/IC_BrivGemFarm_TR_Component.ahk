@@ -260,6 +260,8 @@ UpdateGUICheckBoxesTR() ;update gui according to settings file
         GuiControl,ICScriptHub:, EarlyDashWait, % g_BrivUserSettings[ "EarlyDashWait" ]
         GuiControl,ICScriptHub:, TRAvoid, % g_BrivUserSettings[ "TRAvoid" ]
 		GuiControl,ICScriptHub:, VanillaDashWait, % !g_BrivUserSettings[ "DisableDashWait" ]
+;			if !g_BrivUserSettings[ "TRAvoid" ]
+;				        GuiControl,ICScriptHub:, TRAvoid, 0
     }
 
 
