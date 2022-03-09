@@ -78,7 +78,7 @@ Gui, ICScriptHub:Add, Text, x202 y589 w40 h20 vAvgStacksTXT
 Gui, ICScriptHub:Add, Button, x60 y632 w80 h20 gStart_TR, Start adventure
 Gui, ICScriptHub:Add, Button, x170 y632 w90 h20 gFirstRun, Setup user details
 
-Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
+;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
 TR_Save_Clicked()
 counter.Start()
