@@ -11,9 +11,9 @@ Gui, ICScriptHub:Font, w700
 Gui, ICScriptHub:Add, Picture, x0 y50 w500 h234 , %A_LineFile%\..\trmod3.gif
 Gui, ICScriptHub:Font, w400
 
-Gui, Add, GroupBox, x22 y302 w340 h200 c000000, 
-Gui, Add, GroupBox, x22 y509 w405 h110 c000000, Logs
-Gui, Add, GroupBox, x22 y649 w280 h50 c000000, Start Temporal Rift with this`, if you already completed it.
+Gui, ICScriptHub:Add, GroupBox, x22 y302 w340 h200 c000000, 
+Gui, ICScriptHub:Add, GroupBox, x22 y509 w405 h103 c000000, Logs
+Gui, ICScriptHub:Add, GroupBox, x22 y612 w280 h50 c000000, Start Temporal Rift with this`, if you already completed it.
 
 
 
@@ -54,8 +54,8 @@ Gui, ICScriptHub:Add, Button , x242 y569 w90 h20 gViewStacksLogButtonClicked, Vi
 Gui, ICScriptHub:Add, Button , x332 y569 w90 h20 gDeleteStacksLogButtonClicked, Clear StacksLog
 ;Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix)
 ;Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
-Gui, Add, Button, x267 y250 w70 h50 gBriv_Run_Clicked, Start gem farm
-Gui, Add, Button, x+5 y250 w70 h50 gBriv_Run_Stop_Clicked, Stop gem farm
+Gui, ICScriptHub:Add, Button, x267 y250 w70 h50 gBriv_Run_Clicked, Start gem farm
+Gui, ICScriptHub:Add, Button, x+5 y250 w70 h50 gBriv_Run_Stop_Clicked, Stop gem farm
 
 
 ;*************LOG
@@ -74,9 +74,8 @@ Gui, ICScriptHub:Add, Text, x202 y589 w40 h20 vAvgStacksTXT
 
 ;*************LOG
 
-
-Gui, ICScriptHub:Add, Button, x60 y669 w80 h20  gStart_TR, Start adventure
-Gui, ICScriptHub:Add, Button, x170 y669 w90 h20  gFirstRun, Setup user details
+Gui, ICScriptHub:Add, Button, x60 y632 w80 h20 gStart_TR, Start adventure
+Gui, ICScriptHub:Add, Button, x170 y632 w90 h20 gFirstRun, Setup user details
 
 ;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
 
