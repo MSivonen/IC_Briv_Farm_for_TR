@@ -28,8 +28,8 @@ Note: When updating IC Briv Gem Farm with Github Desktop, the AddOns folder will
 Usage:</br>
 </br>
 "Use dynamic reset zone?" Enables this mod. Disable to have 100% original unmodded functionality of Briv Gem Farm.</br>
-"Reset after stacking if haste stacks is less than this" for early stacking. Ignored if dynamic reset zone is unchecked.</br>
-Many times when changing adventures and come back, I got 70 stacks left, then stack/restart, then use the few remaining stacks and then restart the adventure. If you don't like it, set it to 0.</br>
+"Reset after stacking if haste stacks is less than this" for early stacking.</br>
+Don't do early stacking if you have less than this amount of stacks.</br>
 In-game Modron core reset level is ignored when playing any variant, including Temporal Rift (that's kinda why I made this thing).</br>
 But you need to set it to high-ish level for dash wait to work. Reset enabled or not doesn't matter.</br>
 </br>
