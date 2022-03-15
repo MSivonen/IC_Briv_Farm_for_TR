@@ -8,6 +8,7 @@ Modified gem farm for temporal rift (not tested on other variants)</br>
 This addon detects when you run out of haste stacks and does stacking and restarts the adventure at that point.</br>
 Early stacking is supported</br>
 Some failsafe resets are removed</br>
+All of the original Briv Gem Farm tab settings are still in use, except enable manual resets does nothing</br>
 
 ---
  </br>
