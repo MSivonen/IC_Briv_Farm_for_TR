@@ -28,6 +28,7 @@ Note: When updating IC Briv Gem Farm with Github Desktop, the AddOns folder will
 Usage:</br>
 </br>
 "Addon enabled" Enables this mod. Disable to have 100% original unmodded functionality of Briv Gem Farm.</br>
+</br>
 "Reset after stacking if haste stacks is less than this" for early stacking.</br>
 Don't do early stacking if you have less than this amount of stacks.</br>
 </br>
