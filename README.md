@@ -1,6 +1,6 @@
 # IC_Briv_Farm_for_TR
 
-ver 0.51
+ver 0.511
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
@@ -75,3 +75,4 @@ v.5 GUI rework</br>
 v.501 after early stacking, delay dash wait for one level, so you can use potions before wait</br>
 v.502 quick fix to gui buttons</br>
 v.51 Automatic reset if stuck in world map</br>
+v.511 minor stuff</br>
