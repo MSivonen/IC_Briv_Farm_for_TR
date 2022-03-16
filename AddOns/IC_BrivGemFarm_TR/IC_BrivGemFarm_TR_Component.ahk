@@ -97,7 +97,7 @@ MsgMonitor(wParam, lParam, msg) ; receives command from farm script to start TR 
 	Briv_Run_Clicked()
 }
 
-UpdateTRLOG(); read logs from files
+UpdateTRLOG() ; read logs from files
 	{
 	global
 	prevRST = % PrevRSTobject.getPrevReset()
@@ -187,7 +187,7 @@ BOXforce()
 		}
 	Return
 	}
-BOXvanillaDashWait();send dash wait checkbox to Briv farm tab
+BOXvanillaDashWait() ;send dash wait checkbox to Briv farm tab
 	{
 	global
 	Gui, Submit, NoHide
@@ -290,7 +290,7 @@ ViewLogButtonClicked() ; open notepad to view log
 	else msgbox,, File not found, Empty log?
 	}
 
-FixStatsClicked();not in use. Forces log updater to start
+FixStatsClicked() ;not in use. Forces log updater to start
 	{
 		counter.Start()
 	}	
