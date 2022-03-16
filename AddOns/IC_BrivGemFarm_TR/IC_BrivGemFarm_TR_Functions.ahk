@@ -121,7 +121,7 @@ class TRClass extends IC_BrivGemFarm_Class
 		global EarlyStacking
 		if ( global g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ] < g_BrivUserSettings[ "StackZone" ] )
 		{
-			if ( g_BrivUserSettings[ "EarlyStacking" ] )
+			if ( g_BrivUserSettings[ "EarlyStacking" ] and g_BrivUserSettings[ "EarlyDashWait" ] )
 			{
 				msgbox Modron reset zone + DashWaitBuffer is larger than your stacking zone resulting dash wait after stacking to fail. Raise your in game modron reset level.
 			}
