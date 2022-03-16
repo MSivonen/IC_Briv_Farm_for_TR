@@ -57,7 +57,7 @@ Gui, ICScriptHub:Add, Button , x332 y569 w90 h20 gDeleteStacksLogButtonClicked, 
 ;Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
 Gui, ICScriptHub:Add, Button, x267 y250 w70 h50 gBriv_Run_Clicked, Start gem farm
 Gui, ICScriptHub:Add, Button, x+5 y250 w70 h50 gBriv_Run_Stop_Clicked, Stop gem farm
-Gui, ICScriptHub:Add, Button, x+5 y260 w70 h30 gTR_Reset_Clicked, Restart`nadventure
+;Gui, ICScriptHub:Add, Button, x+5 y260 w70 h30 gTR_Reset_Clicked, Restart`nadventure
 
 
 ;*************LOG
