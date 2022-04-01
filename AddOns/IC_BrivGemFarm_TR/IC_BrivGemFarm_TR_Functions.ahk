@@ -33,7 +33,6 @@ class TRClass extends IC_BrivGemFarm_Class
 		;Early stacking
 		if ( g_BrivUserSettings[ "EarlyStacking" ] AND stacks < g_BrivUserSettings[ "TargetStacks" ] AND CurrentZone > g_BrivUserSettings[ "StackZone" ] AND g_SF.Memory.ReadHasteStacks() > g_BrivUserSettings[ "TRHaste" ]  )
 			{
-                g_ServerCall.CallLoadAdventure( -1 )
 				this.StackFarm()
 			}
 			
@@ -41,7 +40,6 @@ class TRClass extends IC_BrivGemFarm_Class
 		if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) !=0 )
 			{
 			PrevRSTobject.setPrevReset(CurrentZone)
-            g_ServerCall.CallLoadAdventure( -1 )
 			this.StackFarm()
    			PrevStacksObject.setPrevReset(stacks)
 			g_SF.RestartAdventure( "TR reset" )
@@ -52,7 +50,6 @@ class TRClass extends IC_BrivGemFarm_Class
 		if ( g_BrivUserSettings [ "TRForce" ] AND g_BrivUserSettings [ "TRForceZone" ] < CurrentZone AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
 			{
 			PrevRSTobject.setPrevReset(CurrentZone)
-            g_ServerCall.CallLoadAdventure( -1 )
 			this.StackFarm()
     		PrevStacksObject.setPrevReset(stacks)
 			g_SF.RestartAdventure( "TR forced reset" )
@@ -124,7 +121,7 @@ class TRClass extends IC_BrivGemFarm_Class
 		global EarlyStacking
 		if ( global g_SF.ModronResetZone - g_BrivUserSettings[ "DashWaitBuffer" ] < g_BrivUserSettings[ "StackZone" ] )
 		{
-			if ( g_BrivUserSettings[ "EarlyStacking" ] AND g_BrivUserSettings[ "EarlyDashWait" ] )
+			if ( g_BrivUserSettings[ "EarlyStacking" ] or g_BrivUserSettings[ "EarlyDashWait" ] )
 			{
 				msgbox Modron reset zone + DashWaitBuffer is larger than your stacking zone resulting dash wait after stacking to fail. Raise your in game modron reset level.
 			}
