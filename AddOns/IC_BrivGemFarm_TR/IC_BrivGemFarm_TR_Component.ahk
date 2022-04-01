@@ -1,4 +1,4 @@
-;v0.51
+;v0.511
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
@@ -6,10 +6,12 @@ global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_Br
 counter := new SecondCounter
 global prevtime := A_TickCount
 
+titlePic = %A_LineFile%\..\trmod3.gif
+
 Gui, ICScriptHub:Tab, Briv TR
 
 Gui, ICScriptHub:Font, w700
-Gui, ICScriptHub:Add, Picture, x0 y50 w500 h234 , %A_LineFile%\..\trmod3.gif
+Gui, ICScriptHub:Add, Picture, x0 y50 w500 h234 vtitlePicture, % titlePic
 Gui, ICScriptHub:Font, w400
 
 Gui, ICScriptHub:Add, GroupBox, x22 y302 w340 h200 c000000, 
@@ -44,7 +46,7 @@ FindIncluded()
 GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
 xyValX += 55
 xyValY += 4
-Gui, ICScriptHub:Add, Text, x89 y469 w180 h30, Don't do early stacking if haste stacks is less than this
+Gui, ICScriptHub:Add, Text, x89 y469 w180 h30, Reset immediately after stacking if haste stacks is less than this
 Gui, ICScriptHub:Add, Text, x48 y362 w200 h20, Minimum zone Briv can farm SB stacks on
 Gui, ICScriptHub:Add, Text, x89 y451 w170 h15, Walk this many levels to stack level
 
@@ -55,9 +57,8 @@ Gui, ICScriptHub:Add, Button , x242 y569 w90 h20 gViewStacksLogButtonClicked, Vi
 Gui, ICScriptHub:Add, Button , x332 y569 w90 h20 gDeleteStacksLogButtonClicked, Clear StacksLog
 ;Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix)
 ;Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
-Gui, ICScriptHub:Add, Button, x267 y250 w70 h50 gBriv_Run_Clicked, Start gem farm
+Gui, ICScriptHub:Add, Button, x267 y250 w70 h50 gjokeBriv_Run_Clicked, Start gem farm
 Gui, ICScriptHub:Add, Button, x+5 y250 w70 h50 gBriv_Run_Stop_Clicked, Stop gem farm
-;Gui, ICScriptHub:Add, Button, x+5 y260 w70 h30 gTR_Reset_Clicked, Restart`nadventure
 
 
 ;*************LOG
@@ -88,16 +89,24 @@ counter.Start()
 OnMessage(0x5555, "MsgMonitor")
 OnMessage(0x5556, "MsgMonitor")
 
-MsgMonitor(wParam, lParam, msg) ; receives command from farm script to start TR and restart farm script
+MsgMonitor(wParam, lParam, msg)
 {
+    ; Since returning quickly is often important, it is better to use ToolTip than
+    ; something like MsgBox that would prevent the function from finishing:
+    ;Msgbox Message %msg% arrived:`nWPARAM: %wParam%`nLPARAM: %lParam%
 	LoadAdventure_automatic()
 	sleep,30000
 	Briv_Run_Stop_Clicked()
 	sleep,1000
 	Briv_Run_Clicked()
 }
-
-UpdateTRLOG() ; read logs from files
+jokeBriv_Run_Clicked()
+{
+	titlePic = %A_LineFile%\..\tr4122.jpg
+	Briv_Run_Clicked()
+	GuiControl,, titlePicture, % titlePic
+}
+UpdateTRLOG()
 	{
 	global
 	prevRST = % PrevRSTobject.getPrevReset()
@@ -187,7 +196,7 @@ BOXforce()
 		}
 	Return
 	}
-BOXvanillaDashWait() ;send dash wait checkbox to Briv farm tab
+BOXvanillaDashWait()
 	{
 	global
 	Gui, Submit, NoHide
@@ -274,13 +283,15 @@ UpdateGUICheckBoxesTR() ;update gui according to settings file
         GuiControl,ICScriptHub:, EarlyDashWait, % g_BrivUserSettings[ "EarlyDashWait" ]
         GuiControl,ICScriptHub:, TRAvoid, % g_BrivUserSettings[ "TRAvoid" ]
 		GuiControl,ICScriptHub:, VanillaDashWait, % !g_BrivUserSettings[ "DisableDashWait" ]
+;			if !g_BrivUserSettings[ "TRAvoid" ]
+;				        GuiControl,ICScriptHub:, TRAvoid, 0
     }
 
 
 
 
 
-ViewLogButtonClicked() ; open notepad to view log
+ViewLogButtonClicked()
 	{
 	logfilepath=%A_LineFile%\..\trlog.json
 	if FileExist(logfilepath)
@@ -290,7 +301,7 @@ ViewLogButtonClicked() ; open notepad to view log
 	else msgbox,, File not found, Empty log?
 	}
 
-FixStatsClicked() ;not in use. Forces log updater to start
+FixStatsClicked()
 	{
 		counter.Start()
 	}	
@@ -374,7 +385,7 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 
 
 	Line := False
-	Loop, Read, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Settings.ahk ;find the included line in settings.ahk
+	Loop, Read, %A_LineFile%\..\..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Settings.ahk
 	{
 		If !Trim(A_LoopReadLine)
 			Continue
@@ -386,11 +397,11 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 		}
 		If Line
 		{
-			Line .= "`r`n" . A_LoopReadLine ;line found, break
+			Line .= "`r`n" . A_LoopReadLine
 			Break
 		}
 	}
-	If (!Found) ;line not found. Add it and show first run messages
+	If (!Found)
 		{
 		msgbox,4,First time run?,TRMod not found in `n ..\IC_BrivGemFarm_Performance\IC_BrivGemFarm_Settings.ahk.`n`n Add it there now?
 		IfMsgBox Yes
@@ -406,12 +417,3 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 			MsgBox ,0,TRMod NOT installed, It will not work.
 		}
 	}
-
-TR_Reset_Clicked()
-{
-	msgbox Restart adventure now?
-	IfMsgBox, No
-		Return
-	IfMsgBox, yes
-		msgbox Never gonna give farming up. Wip.
-}
