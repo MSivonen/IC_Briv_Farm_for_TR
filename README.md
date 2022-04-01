@@ -1,12 +1,9 @@
 # IC_Briv_Farm_for_TR
 
-ver 1.4.22.
+ver 0.511
 
 TRMod for IC Script Hub by Thatman</br>
 Modified gem farm for temporal rift (not tested on other variants)</br>
-
-I finally figured out a way to do TR with one reset. After reaching stacking zone, instead of restarting the game, it makes several server calls to convert the stacks and then restarts the adventure. About +25% bph/gph is expected. Enjoy!</br>
----
 
 This addon detects when you run out of haste stacks and does stacking and restarts the adventure at that point.</br>
 Early stacking is supported</br>
