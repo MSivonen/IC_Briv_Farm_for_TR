@@ -1,9 +1,9 @@
-;v0.51
+;v0.511
 
 GUIFunctions.AddTab("Briv TRmod")
 ;Load user settings
 global g_BrivUserSettings := g_SF.LoadObjectFromJSON( A_LineFile . "\..\..\IC_BrivGemFarm_Performance\BrivGemFarmSettings.json" )
-counter := new SecondCounter
+counter := new SecondCounter ;used for log updating in GUI
 global prevtime := A_TickCount
 
 Gui, ICScriptHub:Tab, Briv TR
@@ -26,8 +26,8 @@ Gui, ICScriptHub:Add, Checkbox, vTRForce Checked%TRForce%  x32 y319 w150 h20 gBO
 Gui, ICScriptHub:Add, Checkbox, vTRAvoid Checked%TRAvoid%  x32 y339 w240 h20 gBOXavoid, Avoid bosses and/or barriers? Jump from level:
 
 Gui, ICScriptHub:Add, Edit, vTRHaste x302 y469 w50 h20, % g_BrivUserSettings[ "TRHaste" ]
-Gui, ICScriptHub:Add, Edit, vStackZone x302 y409 w50 h20, % g_BrivUserSettings[ "StackZone" ]
-Gui, ICScriptHub:Add, Edit, vMinZone x302 y359 w50 h20, % g_BrivUserSettings[ "MinStackZone" ]
+Gui, ICScriptHub:Add, Edit, vStackZone x302 y409 w50 h20, % g_BrivUserSettings[ "StackZone" ] ;same as vanilla StackZone
+Gui, ICScriptHub:Add, Edit, vMinZone x302 y359 w50 h20, % g_BrivUserSettings[ "MinStackZone" ] ;same as vanilla MinStackZone
 Gui, ICScriptHub:Add, Edit, vTRForceZone x302 y319 w50 h20, % g_BrivUserSettings[ "TRForceZone" ]
 Gui, ICScriptHub:Add, Edit, vTRJumpZone x302 y339 w50 h20, % g_BrivUserSettings[ "TRJumpZone" ]
 Gui, ICScriptHub:Add, Edit, vTRexactStack x302 y449 w50 h20, % g_BrivUserSettings[ "TRexactStack" ]
@@ -36,9 +36,9 @@ Gui, ICScriptHub:Add, Edit, vTRexactStack x302 y449 w50 h20, % g_BrivUserSetting
 
 
 
-UpdateGUICheckBoxesTR()
-UpdateTRGUI()
-FindIncluded()
+UpdateGUICheckBoxesTR() ;check the boxes on load according to settings file
+UpdateTRGUI() ;enable/disable check/edit boxes
+FindIncluded() ;is the addon included in IC_BrivGemFarm_Settings.ahk
 
 
 GuiControlGet, xyVal, ICScriptHub:Pos, TRHaste
@@ -53,11 +53,11 @@ Gui, ICScriptHub:Add, Button , x242 y549 w90 h20 gViewLogButtonClicked, View Res
 Gui, ICScriptHub:Add, Button , x332 y549 w90 h20 gDeleteLogButtonClicked, Clear ResetLog
 Gui, ICScriptHub:Add, Button , x242 y569 w90 h20 gViewStacksLogButtonClicked, View StacksLog
 Gui, ICScriptHub:Add, Button , x332 y569 w90 h20 gDeleteStacksLogButtonClicked, Clear StacksLog
-;Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix)
+;Gui, ICScriptHub:Add, Button , x15 y+5 gFixStatsClicked, Fix log (quick bugfix) ;for some reason the logs were not updating. Clicking this button starts the update timer.
 ;Gui, ICScriptHub:Add, Text, x+2 w100, Click if logs are not working
 Gui, ICScriptHub:Add, Button, x267 y250 w70 h50 gBriv_Run_Clicked, Start gem farm
 Gui, ICScriptHub:Add, Button, x+5 y250 w70 h50 gBriv_Run_Stop_Clicked, Stop gem farm
-;Gui, ICScriptHub:Add, Button, x+5 y260 w70 h30 gTR_Reset_Clicked, Restart`nadventure
+;Gui, ICScriptHub:Add, Button, x+5 y260 w70 h30 gTR_Reset_Clicked, Restart`nadventure ;I never got to make this. It'd need to communicate with the run.ahk and somethingsomething.
 
 
 ;*************LOG
@@ -79,13 +79,13 @@ Gui, ICScriptHub:Add, Text, x202 y589 w40 h20 vAvgStacksTXT
 Gui, ICScriptHub:Add, Button, x60 y632 w80 h20 gStart_TR, Start adventure
 Gui, ICScriptHub:Add, Button, x170 y632 w90 h20 gFirstRun, Setup user details
 
-;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, .
+;Gui, ICScriptHub:Add, Button , x220 y690 gDelinaButtonClicked, . ;test button for testing stuff
 
 TR_Save_Clicked()
-counter.Start()
+counter.Start() ;starts log update timers
 
 
-OnMessage(0x5555, "MsgMonitor")
+OnMessage(0x5555, "MsgMonitor") 
 OnMessage(0x5556, "MsgMonitor")
 
 MsgMonitor(wParam, lParam, msg) ; receives command from farm script to start TR and restart farm script
@@ -111,7 +111,9 @@ UpdateTRLOG() ; read logs from files
 	GuiControl,,AvgStacksTXT, % avgStacks
 	}
 
-BOXdynamic() ;Disables check/text boxes when clicked
+
+;Disables/enables check/text boxes when clicked
+BOXdynamic()
 
 	{
 	global
@@ -215,6 +217,7 @@ BOXavoid()
 		}
 	Return
 	}
+
 
 UpdateTRGUI() ;Disables check/text boxes when script is loaded
 	{
@@ -400,14 +403,13 @@ FindIncluded() ; Check if TRMod is included in IC_BrivGemFarm_Performance\IC_Bri
 			TR_Save_Clicked()
 			MsgBox ,0,TRMod Installed, Please stop gem farm and restart ICSCripthub
 			MsgBox ,0,Annoying thing, TRMod Known bug: TRMod tab may have empty text fields on first run.`nRestart ICSCripthub twice. That should fix it.`nSorry.
-
 		}
 		else
 			MsgBox ,0,TRMod NOT installed, It will not work.
 		}
 	}
 
-TR_Reset_Clicked()
+TR_Reset_Clicked() ;WIP
 {
 	msgbox Restart adventure now?
 	IfMsgBox, No

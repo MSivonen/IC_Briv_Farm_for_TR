@@ -11,7 +11,7 @@ class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends
          if (g_BrivUserSettings[ "TRAvoid" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) != g_BrivUserSettings[ "TRJumpZone" ] ) ;Decide between walk or jump to next level
             return true
 
-        if (g_BrivUserSettings[ "TRexactStack" ] > 0 AND g_SF.Memory.ReadCurrentZone() <= g_BrivUserSettings[ "StackZone" ] +1)
+        if (g_BrivUserSettings[ "TRexactStack" ] > 0 AND g_SF.Memory.ReadCurrentZone() <= g_BrivUserSettings[ "StackZone" ] +1) ;Walk to stack level
             if (g_SF.Memory.ReadCurrentZone() >= g_BrivUserSettings[ "StackZone" ] - g_BrivUserSettings[ "TRexactStack" ] AND g_SF.Memory.ReadCurrentZone() AND g_BrivUserSettings[ "EarlyStacking" ] )
                 return true
         ;bench briv if jump animation override is added to list and it isn't a quick transition (reading ReadFormationTransitionDir makes sure QT isn't read too early)
@@ -61,7 +61,7 @@ class IC_SharedFunctions_Class_TR extends IC_BrivSharedFunctions_Class ; extends
         return false
     } 
 
-    VerifyAdventureLoaded()
+    VerifyAdventureLoaded() ;if at world map, run.ahk sends restart command to TRcomponent.ahk
     {
         CurrentObjID := this.Memory.ReadCurrentObjID()
         if ( CurrentObjID == "" OR CurrentObjID <= 0 )

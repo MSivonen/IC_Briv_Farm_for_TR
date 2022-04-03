@@ -1,4 +1,6 @@
 ﻿;v0.51
+;this code is from IdleCombos. Lots of stuff for little work done. It works, so I decided to refactor it "later". I had plans for more, but didn't get to it.
+
 global VersionNumber := "2.00"
 global CurrentDictionary := "2.00"
 

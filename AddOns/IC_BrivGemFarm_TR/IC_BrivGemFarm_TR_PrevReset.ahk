@@ -8,27 +8,27 @@ class TR_Prev_Reset
 		{
 			last_line := A_LoopReadLine
 		}
-	return last_line
+		return last_line
 	}	
-	
+
 	getLogFile()
 	{
-	   FileRead text, addons\IC_BrivGemFarm_TR\trlog.json
-	   Loop Parse, text, `n
-		return text
+		FileRead text, addons\IC_BrivGemFarm_TR\trlog.json
+		Loop Parse, text, `n
+			return text
 	}
-		
-	setPrevReset(lvl) ; write last line of file, delete first line, if over 100 lines
+
+	setPrevReset(lvl) ; write last line of file, delete first line, if over 1000 lines
 	{
 		FilePath := "%A_LineFile%\..\..\IC_BrivGemFarm_TR\trlog.json"
 		if FileExist(FilePath)
-			{
+		{
 			FileAppend, `n%lvl%, % FilePath
-			}
+		}
 		Else
-			{
+		{
 			FileAppend, %lvl%, % FilePath
-			}
+		}
 
 		FileRead, LogFile, % FilePath
 
@@ -40,21 +40,21 @@ class TR_Prev_Reset
 			FileAppend, % NewLogFile, % FilePath
 		}
 	}
-	
+
 	getAVG()
 	{
-	   FileRead text, addons\IC_BrivGemFarm_TR\trlog.json
-	   Loop Parse, text, `n
-		lines++
-	   Loop Parse, text, `n
-	   {
-		  If (A_Index < lines - 10)
-			 Continue
-		  L = %L%`n%A_Loopfield%
-	   }
-	   StringTrimLeft L, L, 1
-	   	loop, parse, L, `n
-				{
+		FileRead text, addons\IC_BrivGemFarm_TR\trlog.json
+		Loop Parse, text, `n
+			lines++
+		Loop Parse, text, `n
+		{
+			If (A_Index < lines - 10) ;last 10 lines
+				Continue
+			L = %L%`n%A_Loopfield%
+		}
+		StringTrimLeft L, L, 1
+		loop, parse, L, `n
+		{
 			if A_LoopField <>
 			{
 				sum += A_LoopField
@@ -73,27 +73,27 @@ class TR_Prev_Stacks
 		{
 			last_line := A_LoopReadLine
 		}
-	return last_line
+		return last_line
 	}	
-	
+
 	getLogFile()
 	{
-	   FileRead text, addons\IC_BrivGemFarm_TR\trStackLog.json
-	   Loop Parse, text, `n
-		return text
+		FileRead text, addons\IC_BrivGemFarm_TR\trStackLog.json
+		Loop Parse, text, `n
+			return text
 	}
-		
-	setPrevReset(lvl) ; write last line of file, delete first line, if over 100 lines
+
+	setPrevReset(lvl) ; write last line of file, delete first line, if over 1000 lines
 	{
 		FilePath := "%A_LineFile%\..\..\IC_BrivGemFarm_TR\trStackLog.json"
 		if FileExist(FilePath)
-			{
+		{
 			FileAppend, `n%lvl%, % FilePath
-			}
+		}
 		Else
-			{
+		{
 			FileAppend, %lvl%, % FilePath
-			}
+		}
 
 		FileRead, LogFile, % FilePath
 
@@ -105,21 +105,21 @@ class TR_Prev_Stacks
 			FileAppend, % NewLogFile, % FilePath
 		}
 	}
-	
+
 	getAVG()
 	{
-	   FileRead text, addons\IC_BrivGemFarm_TR\trStackLog.json
-	   Loop Parse, text, `n
-		lines++
-	   Loop Parse, text, `n
-	   {
-		  If (A_Index < lines - 10)
-			 Continue
-		  L = %L%`n%A_Loopfield%
-	   }
-	   StringTrimLeft L, L, 1
-	   	loop, parse, L, `n
-				{
+		FileRead text, addons\IC_BrivGemFarm_TR\trStackLog.json
+		Loop Parse, text, `n
+			lines++
+		Loop Parse, text, `n
+		{
+			If (A_Index < lines - 10)
+				Continue
+			L = %L%`n%A_Loopfield%
+		}
+		StringTrimLeft L, L, 1
+		loop, parse, L, `n
+		{
 			if A_LoopField <>
 			{
 				sum += A_LoopField
@@ -130,33 +130,33 @@ class TR_Prev_Stacks
 	}
 }
 
-
-class SecondCounter {
-    __New() {
-        this.interval := 10000
-        this.count := 0
-        this.timer := ObjBindMethod(this, "Tick")
-    }
-    Start() {
-        timer := this.timer
-        SetTimer % timer, % this.interval
-    }
-    Stop() {
-        timer := this.timer
-        SetTimer % timer, Off
-    }
-    Tick() {
+class SecondCounter ;timers for GUI update
+{
+	__New() {
+		this.interval := 10000 ;update GUI at 10 sec intervals
+		this.count := 0
+		this.timer := ObjBindMethod(this, "Tick")
+	}
+	Start() {
+		timer := this.timer
+		SetTimer % timer, % this.interval
+	}
+	Stop() {
+		timer := this.timer
+		SetTimer % timer, Off
+	}
+	Tick() {
 		global
 		prevRST = % PrevRSTobject.getPrevReset()
 		GuiControl,ICScriptHub:,PrevTXT, % prevRST
-		
+
 		avgRST = % PrevRSTobject.getAVG()
 		GuiControl,ICScriptHub:,AvgTXT, % avgRST
 
 		prevStacks = % PrevStacksObject.getPrevReset()
 		GuiControl,ICScriptHub:,PrevStacksTXT, % prevStacks
-		
+
 		AvgStacks = % PrevStacksObject.getAVG()
 		GuiControl,ICScriptHub:,AvgStacksTXT, % avgStacks
-    }
+	}
 }

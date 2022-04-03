@@ -1,7 +1,7 @@
-;v0.51
+;v0.511
 #include %A_LineFile%\..\IC_BrivGemFarm_TR_PrevReset.ahk
-global PrevRSTobject = new TR_Prev_Reset
-global PrevStacksObject = new TR_Prev_Stacks
+global PrevRSTobject = new TR_Prev_Reset ;log things
+global PrevStacksObject = new TR_Prev_Stacks ;log things
 global modronChecked = False
 global EarlyStackingWaitDone := false
 
@@ -17,7 +17,7 @@ class TRClass extends IC_BrivGemFarm_Class
         forcedResetReason := ""
         if (!modronChecked)
             {
-            this.checkModron()
+            this.checkModron() ;check if modron reset level is too low. Only once, otherwise the msgbox will keep popping up
             modronChecked := True
             }
 	
@@ -37,11 +37,11 @@ class TRClass extends IC_BrivGemFarm_Class
 			}
 			
 		;End of run stacking		
-		if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] AND mod(g_SF.Memory.ReadCurrentZone(),5) !=0 )
+		if ( g_SF.Memory.ReadHasteStacks() < 50 AND g_SF.Memory.ReadHighestZone() > 10 AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] ) ; AND mod(g_SF.Memory.ReadCurrentZone(),5) !=0 )
 			{
-			PrevRSTobject.setPrevReset(CurrentZone)
+			PrevRSTobject.setPrevReset(CurrentZone) ;write zone to log
 			this.StackFarm()
-   			PrevStacksObject.setPrevReset(stacks)
+   			PrevStacksObject.setPrevReset(stacks) ;write stacks to log
 			g_SF.RestartAdventure( "TR reset" )
             EarlyStackingWaitDone := false
 			}
@@ -49,9 +49,9 @@ class TRClass extends IC_BrivGemFarm_Class
 		;Forced reset
 		if ( g_BrivUserSettings [ "TRForce" ] AND g_BrivUserSettings [ "TRForceZone" ] < CurrentZone AND CurrentZone > g_BrivUserSettings[ "MinStackZone" ] )
 			{
-			PrevRSTobject.setPrevReset(CurrentZone)
+			PrevRSTobject.setPrevReset(CurrentZone) ;write zone to log
 			this.StackFarm()
-    		PrevStacksObject.setPrevReset(stacks)
+    		PrevStacksObject.setPrevReset(stacks) ;write stacks to log
 			g_SF.RestartAdventure( "TR forced reset" )
             EarlyStackingWaitDone := false
 			}
@@ -115,7 +115,7 @@ class TRClass extends IC_BrivGemFarm_Class
         return
     }
 
-    checkModron() ;check if dash wait fails because of modron reset level
+    checkModron() ;check if early dash wait will fail because of modron reset level
 	{
 		g_SF.ModronResetZone := g_SF.Memory.GetCoreTargetAreaByInstance(g_SF.Memory.ReadActiveGameInstance())
 		global EarlyStacking
